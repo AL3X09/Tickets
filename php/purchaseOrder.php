@@ -6,7 +6,7 @@ $classFunction = new functions(); // Clase funciones
 $idRequirement = $_REQUEST["IdRequerimiento"];
 $responseDecoded;
 
-$config = parse_ini_file('config.ini');
+$config = parse_ini_file('../config/config.ini');
 $page = (isset($_POST['page'])) ? intval($_POST['page']) : 0;
 $rows = (isset($_POST['rows'])) ? intval($_POST['rows']) : 50;
 $idRequirement = (isset($_REQUEST['IdRequerimiento']) && !is_null($_REQUEST['IdRequerimiento']) && !empty($_REQUEST['IdRequerimiento'])) ? $_REQUEST['IdRequerimiento'] : "null";

@@ -1,6 +1,6 @@
 <?php
 
-$config = parse_ini_file('config.ini');
+$config = parse_ini_file('../config/config.ini');
 //ini_set("display_errors", "on");
 $curl = curl_init();
 

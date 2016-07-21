@@ -2,7 +2,7 @@
 
 require './functions.php';
 session_start();
-$config = parse_ini_file('config.ini');
+$config = parse_ini_file('../config/config.ini');
 $classFunction = new functions(); // Clase funciones
 //ini_set("display_errors", "on");
 $curl = curl_init();

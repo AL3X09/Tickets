@@ -1,5 +1,5 @@
 <?php
-$config = parse_ini_file('config.ini');
+$config = parse_ini_file('../config/config.ini');
 $curl = curl_init();
 
 curl_setopt_array($curl, array(

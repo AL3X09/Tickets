@@ -3,7 +3,7 @@
 require './functions.php';
 session_start();
 $classFunction = new functions(); // Clase funciones
-$config = parse_ini_file('config.ini');
+$config = parse_ini_file('../config/config.ini');
 $idUser = intval($_SESSION["id"]);
 $ipUser = htmlspecialchars($classFunction->getRealIp());
 $nameApp = htmlspecialchars($_REQUEST["Nombre"]);
