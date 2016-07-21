@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -631,7 +631,7 @@
         <script src="../libs/bootstrap/moment/moment.js" type="text/javascript"></script>
         <script src="../libs/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="../libs/bootstrap/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
-        <script src="../libs/moment/locale/es.js" type="text/javascript"></script>
+        <script src="../libs/bootstrap/moment/locale/es.js" type="text/javascript"></script>
         <script type="text/javascript">
             $(document).ready(function () {
                 $('#FechaEstSIES').datetimepicker({

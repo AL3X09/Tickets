@@ -16,7 +16,6 @@ curl_setopt_array($curl, array(
     CURLOPT_TIMEOUT => 30,
     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
     CURLOPT_CUSTOMREQUEST => "GET",
-    CURLOPT_POSTFIELDS => "{\r\n  \"Nombre\": \"sample string 1\",\r\n  \"Password\": \"sample string 2\",\r\n  \"IdEmpresa\": 1,\r\n  \"IdCiudad\": 1,\r\n  \"IdRol\": 1,\r\n  \"Activo\": true,\r\n  \"Email\": \"sample string 3\",\r\n  \"Celular\": \"sample string 4\",\r\n  \"DirIp\": \"sample string 5\",\r\n  \"Fotografia\": \"sample string 6\",\r\n  \"Usuario\": 1\r\n}",
     CURLOPT_HTTPHEADER => array(
         "cache-control: no-cache",
         "content-type: application/json",

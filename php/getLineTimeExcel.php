@@ -1,5 +1,6 @@
 <?php
 
+//ini_set("display_errors", "on");
 include './functions.php';
 $config = parse_ini_file('config.ini');
 $classFunctions = new functions();
