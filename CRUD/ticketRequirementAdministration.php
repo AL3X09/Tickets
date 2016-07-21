@@ -60,7 +60,7 @@
                     <th field="nModulo" width="50">Modulo</th>
                     <th field="IdPrioridad" width="50" hidden="true">IDPrioridad</th>
                     <th field="nPrioridad" width="50">Prioridad</th>
-                    <th field="valOrdenCompra" width="50" align="center">Orden de compra</th>
+                    <th field="valOrdenCompra" width="50" align="center" formatter ="purchaseOrder">Orden de compra</th>
                     <th field="valAutorizado" width="50">Autorizado</th>                    
                     <th field="nEstado" width="50">Estado</th>                         
                 </tr>
