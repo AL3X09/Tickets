@@ -3,8 +3,8 @@ require './functions.php';
 session_start();
 $config = parse_ini_file('../config/config.ini');
 $classFunction = new functions(); // Clase funciones
-$idUser = 1;//intval($_SESSION["id"]);
-$ipUser = "http://localhost/Tickets/views/ticketsEspecialitys.php";//htmlspecialchars($classFunction->getRealIp());
+$idUser = intval($_SESSION["id"]);
+$ipUser = htmlspecialchars($classFunction->getRealIp());
 $id = $_REQUEST['id'];
 $nombre = $_REQUEST['Nombre'];
 
