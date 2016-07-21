@@ -4,7 +4,7 @@ var idLineaTiempo;
 $(document).ready(function () {
 
 
-    $.ajax({url: 'php/getLineTimeExcel.php?',
+    $.ajax({url: '../php/getLineTimeExcel.php?',
         type: 'POST',
         data: {"requirement": requirement},
         dataType: 'json',
@@ -12,7 +12,7 @@ $(document).ready(function () {
             $.each(response, function (index) {
                 $("#cd-timeline").append('<div class="cd-timeline-block">' +
                         '<div class="cd-timeline-img cd-picture">' +
-                        '<img src="img/cd-icon-picture.svg" alt="Picture">' +
+                        '<img src="../img/cd-icon-picture.svg" alt="Picture">' +
                         '</div> ' +
                         '<div class="cd-timeline-content">' +
                         '<h2>' + response[index]["Descripcion"] + '</h2>' +
@@ -35,14 +35,14 @@ function newUser(button) {
     idLineaTiempo = $(button).data("line");
     $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nueva Tarea');
     $('#fm').form('clear');
-    url = 'php/saveTimeLine.php';
+    url = '../php/saveTimeLine.php';
 }
 function editUser() {
     var row = $('#dg').datagrid('getSelected');
     if (row) {
         $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Edit User');
         $('#fm').form('load', row);
-        url = 'php/updateHomework.php?id=' + row.IdTarea;
+        url = '../php/updateHomework.php?id=' + row.IdTarea;
     }
 }
 
@@ -66,21 +66,21 @@ function saveUser() {
         }
     });
 }
-$(function () {
-    $('#dd').datebox().datebox('calendar').calendar({
-        validator: function (date) {
-            var now = new Date();
-            var d1 = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-            var d2 = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 10);
-            return d1 <= date && date <= d2;
-        }
-    });
-});
+//$(function () {
+//    $('#dd').datebox().datebox('calendar').calendar({
+//        validator: function (date) {
+//            var now = new Date();
+//            var d1 = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+//            var d2 = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 10);
+//            return d1 <= date && date <= d2;
+//        }
+//    });
+//});
 function newTimeLine() {
 
     $('#dlg-line').dialog('open').dialog('center').dialog('setTitle', 'Nueva anotaciòn');
     $('#fm-line').form('clear');
-    url = 'php/saveTimeLine.php?requirement='+requirement;
+    url = '../php/saveTimeLine.php?requirement=' + requirement;
 
 }
 function saveTimeLine() {

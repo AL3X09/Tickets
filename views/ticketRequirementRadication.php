@@ -234,6 +234,7 @@
                     data: {"app": $("#IdAplicativo option:selected").val()},
                     dataType: 'json',
                     success: function (data) {
+                        console.log(data);
                         $.each(data, function (index) {
                             $("#IdModulo").append("<option value='" + data[index]["IdModulo"] + "'>" + data[index]["Nombre"] + "</option>");
                         });
