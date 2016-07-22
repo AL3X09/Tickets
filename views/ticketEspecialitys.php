@@ -13,7 +13,7 @@
     </head>
     <body>
         
-        <table id="dg" title="Especialidades" class="easyui-datagrid" style="width:500px;height:350px"
+        <table id="dg" title="Especialidades" class="easyui-datagrid" style="width:500px;height:450px"
                url="../php/getAllEspecialitys.php"
                toolbar="#toolbar" pagination="true"
                rownumbers="true" fitColumns="true" singleSelect="true">
@@ -45,7 +45,7 @@
         <script type="text/javascript">
             var url;
             function newUser() {
-                $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nuevo rol');
+                $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nuevo');
                 $('#fm').form('clear');
                 url = '../php/saveEspecialitys.php';
             }
