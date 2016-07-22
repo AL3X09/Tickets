@@ -23,3 +23,4 @@ modulo estructurado de la siguente forma:
 [SIES](http://www.siesweb.com/)
 --------------------
 ® derechos reservados
++[manual](http://www.cristalab.com/tutoriales/como-colaborar-en-un-proyecto-en-github-c112327l/)
