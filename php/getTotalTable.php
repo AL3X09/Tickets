@@ -1,6 +1,6 @@
 <?php
 
-$config = parse_ini_file('config.ini');
+$config = parse_ini_file('../config/config.ini');
 $table = (isset($_REQUEST["table"])) ? $_REQUEST["table"] : null;
 $curl = curl_init();
 

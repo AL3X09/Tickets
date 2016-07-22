@@ -1,7 +1,7 @@
 <?php
 //global $response;
 $curl = curl_init();
-$config = parse_ini_file('config.ini');
+$config = parse_ini_file('../config/config.ini');
 curl_setopt_array($curl, array(
   CURLOPT_PORT => "8016",
   CURLOPT_URL => $config['server']."/api/Roles/RolesConsultarUno?idRol=".$_REQUEST["id"],

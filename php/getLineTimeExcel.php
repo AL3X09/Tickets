@@ -2,7 +2,7 @@
 
 //ini_set("display_errors", "on");
 include './functions.php';
-$config = parse_ini_file('config.ini');
+$config = parse_ini_file('../config/config.ini');
 $classFunctions = new functions();
 $values = "{" . $classFunctions->concatComma($classFunctions->validateRequestParameter("IDLineaTiempo", "idTimeLine")) .
         $classFunctions->concatComma($classFunctions->validateRequestParameter("IdRequerimiento", "requirement")) .

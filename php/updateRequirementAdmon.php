@@ -3,7 +3,7 @@
 require './functions.php';
 //ini_set("display_errors", "on");
 session_start();
-$config = parse_ini_file('config.ini');
+$config = parse_ini_file('../config/config.ini');
 
 $classFunction = new functions(); // Clase funciones
 $idUser = intval($_SESSION["id"]);

@@ -5,7 +5,7 @@ session_start();
 //ini_set("display_errors", "on");
 $classFunction = new functions(); // Clase funciones
 
-$config = parse_ini_file('config.ini');
+$config = parse_ini_file('../config/config.ini');
 $page = (isset($_POST['page'])) ? intval($_POST['page']) : 0;
 $rows = (isset($_POST['rows'])) ? intval($_POST['rows']) : 10;
 $idCompany = (isset($_REQUEST['IdEmpresa']) && !is_null($_REQUEST['IdEmpresa']) && !empty($_REQUEST['IdEmpresa'])) ? $_REQUEST['IdEmpresa'] : "null";
