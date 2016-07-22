@@ -22,8 +22,8 @@
                 <tr>
                     <th field="Requerimiento" width="50">Requerimiento</th>
                     <th field="Respuesta" width="50">Respuesta</th>                    
-                    <th field="Aplicativo" width="50">Aplicativo</th>                    
-                    <th field="Modulo" width="50">Modulo</th>                    
+                    <th field="IdAplicativo" width="50" >IdAplicativo</th>                    
+                    <th field="IdModulo" width="50">IdModulo</th>                    
                 </tr>
             </thead>
         </table>
