@@ -2,43 +2,70 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>MODULO FQS</title>
+        <title>MODULO FAQ</title>
         <link rel="stylesheet" type="text/css" href="../libs/easyui/themes/material/easyui.css">
         <link rel="stylesheet" type="text/css" href="../libs/easyui/themes/icon.css">
         <link rel="stylesheet" type="text/css" href="../libs/easyui/themes/color.css">
         <link rel="stylesheet" type="text/css" href="../libs/easyui/demo/demo.css">
+        <link rel="stylesheet" type="text/css" href="../libs/bootstrap/css/bootstrap.min.css">
         <script type="text/javascript" src="../libs/easyui/jquery.min.js"></script>
         <script type="text/javascript" src="../libs/easyui/jquery.easyui.min.js"></script>
         <script id="script-lang" src="../libs/easyui/locale/easyui-lang-es.js"></script> 
     </head>
     <body>
         
-        <table id="dg" title="Especialidades" class="easyui-datagrid" style="width:500px;height:350px"
-               url="../php/getAllEspecialitys.php"
+        <table id="dg" title="FAQ" class="easyui-datagrid" style="width:100%;height:350px"
+               url="../php/getAllFAQ.php"
                toolbar="#toolbar" pagination="true"
                rownumbers="true" fitColumns="true" singleSelect="true">
             <thead>
                 <tr>
                     <th field="Requerimiento" width="50">Requerimiento</th>
                     <th field="Respuesta" width="50">Respuesta</th>                    
+                    <th field="Aplicativo" width="50">Aplicativo</th>                    
+                    <th field="Modulo" width="50">Modulo</th>                    
                 </tr>
             </thead>
         </table>
         <div id="toolbar">
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">Nueva Especialidad</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">Nuevo Requqerimiento</a>
             <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">Editar</a>
         </div>
 
-        <div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
+        <div id="dlg" class="easyui-dialog" style="width:700px;height:500px;padding:10px 20px"
              closed="true" buttons="#dlg-buttons">
-            <div class="ftitle">Gestion de Especialidades</div>
+            <div class="ftitle">Gestion de Requerimiento</div>
             <form id="fm" method="post" novalidate>
-                <div class="fitem">
+            <!--agrego bostrap para el contenidodel -->
+            <!--combobox selecion ID aplicativo -->
+                <div class="row">
+                  <label>Aplicativo</label>
+                  <select id="ap" class="easyui-combobox" name="idAplicativo" style="width:100%" data-options="
+                                    valueField: 'IdAplicativo',
+                                    textField: 'Nombre',
+                                    url: '../php/getApp.php',
+                                   "></select>
+                </div> 
+                <!--combobox selecion ID modulo -->
+                <div class="row">
+                  <label>Modulo</label>
+                  <select id="md" class="easyui-combobox" name="idModulo" style="width:100%" data-options="
+                                    valueField: 'IdModulo',
+                                    textField: 'Nombre',
+                                    url: '../php/getModules.php',
+                                    "></select>
+                </div>       
+                <!--input requerimiento (pregunta) -->
+                <div class="row">
                     <label>Requerimiento</label>
-                    <input name="Requerimiento" class="easyui-textbox" required="true">
+                    <input name="Requerimiento" class="easyui-textbox" required="true" style="width:100%">
+                </div>
+                <!--input respuesta -->
+                <div class="row">
                     <label>Respuesta</label>
-                    <input name="Respuesta" class="easyui-textbox" required="true">
-                </div>                
+                    <!--<input name="Respuesta" class="easyui-textbox" required="true">-->
+                    <textarea class="form-control" name="Respuesta" required="true"></textarea>
+                </div>
             </form>
         </div>
         <div id="dlg-buttons">
@@ -48,16 +75,16 @@
         <script type="text/javascript">
             var url;
             function newUser() {
-                $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nuevo rol');
+                $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nuevo Requerimiento');
                 $('#fm').form('clear');
-                url = '../php/saveEspecialitys.php';
+                url = '../php/saveFAQ.php';
             }
             function editUser() {
                 var row = $('#dg').datagrid('getSelected');
                 if (row) {
                     $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Editar');
                     $('#fm').form('load', row);
-                    url = '../php/updateEspeciality.php?id=' + row.IdFAQ;
+                    url = '../php/updateFAQ.php?id=' + row.IdFAQ;
                 }
             }
             function saveUser() {
@@ -76,7 +103,7 @@
                         } else {
                             $.messager.show({
                                 title: 'Notificacion',
-                                msg: result,
+                                msg: "accion satisfactoria",
                                 showType: 'show'
                             });
                             $('#dlg').dialog('close');        // close the dialog
