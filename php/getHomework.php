@@ -28,5 +28,30 @@ curl_close($curl);
 if ($err) {
     echo "cURL Error #:" . $err;
 } else {
-    echo $response;
+    //echo $response;
+    //envio respuesta a un array 
+    $array = json_decode($response, true);
+    //valido si no un array
+    if (!is_array($array)) {
+    var_dump($array);
+    }
+    //si es un array se trabaja  
+    else {
+    $result = array();      // variable donde se re asigna array
+    $row;                   //variable donde con la que se trabaja el array 
+    foreach ($array as $key => $value) {
+        //re asigno valores
+        $row = array(
+            "IdTarea" => $value["IdTarea"],
+            "Nombre" => $value["Nombre"],
+            "IdResponsableTarea" => $value["IdResponsableTarea"],
+            "FechaInicioTarea" => substr($value["FechaInicioTarea"],0,10), // con substr controlo las cadenas a mostar
+            "FechaFinEstimadoTarea" => substr($value["FechaFinEstimadoTarea"],0,10),
+            "FechaFinTarea" => substr($value["FechaFinTarea"],0,10),
+        );
+        array_push($result, $row); //agrego valores de row en result 
+    }
+       //var_dump($result);
+   echo json_encode($result, true); //envio jason a vista para trabajarlo
+  }
 }

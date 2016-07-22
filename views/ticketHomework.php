@@ -71,9 +71,24 @@
             }
             function editUser() {
                 var row = $('#dg').datagrid('getSelected');
+                //proceso de envio valor correcto de fecha a datebox
+                var fecha = row.FechaFinEstimadoTarea;          //capturo la fecha
+                var res = fecha.split("-");                     //elimino el gion de la fecha
+                //alert(res);
+                //recorro el arreglo y le asiggono el separador
+                for (var i=0; i < res.length; i++) {
+                          var year=(res[0]);
+                          var month=(res[1] + "/");                        
+                          var day=(res[2] + "/");
+                                                    
+                       }
+                var date=month+day+year;                        //capturo y asigno los valores en nuevo array
+                date.toString();                                //convierto a string
+                //fin envio fecha a datebox
                 if (row) {
                     $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Editar tarea');
                     $('#fm').form('load', row);
+                    $('#dd').datebox('setValue', date);	         // envio al datebox el valor
                     url = '../php/updateHomework.php?id=' + row.IdTarea;
                 }
             }
@@ -126,11 +141,11 @@
 
             $(function () {
                 $('#dd').datebox().datebox('calendar').calendar({
-                    validator: function (date) {
+                        validator: function (date) {
                         var now = new Date();
                         var d1 = new Date(now.getFullYear(), now.getMonth(), now.getDate());
                         var d2 = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 10);
-                        return d1 <= date && date <= d2;
+                        return d1 <= date && date <= d2;                       
                     }
                 });
             });

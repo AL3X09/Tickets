@@ -103,7 +103,7 @@
                         } else {
                             $.messager.show({
                                 title: 'Notificacion',
-                                msg: "accion satisfactoria",
+                                msg: result,
                                 showType: 'show'
                             });
                             $('#dlg').dialog('close');        // close the dialog

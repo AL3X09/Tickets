@@ -1,6 +1,7 @@
 <?php
 
 require './functions.php';
+
 session_start();
 $config = parse_ini_file('../config/config.ini');
 $classFunction = new functions(); // Clase funciones

@@ -1,5 +1,4 @@
 <?php
-
         session_start();
         $_SESSION["nameUser"] = "Bryan Steven Mu&ntilde;oz";
         $_SESSION["firma"] = "bryan.png";

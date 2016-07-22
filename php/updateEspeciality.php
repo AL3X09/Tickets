@@ -40,5 +40,6 @@ curl_close($curl);
 if ($err) {
   echo "cURL Error #:" . $err;
 } else {
-  echo $response;
+  $result = (is_numeric($response)) ? "Especialidad actualizada con exito" : "Ha ocurrido un error, por favor intente nuevamente. $response";
+    echo json_encode($result);
 }
