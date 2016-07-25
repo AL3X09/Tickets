@@ -12,13 +12,7 @@ $idAplicativo=$_REQUEST['idAplicativo'];
 $idModulo=$_REQUEST['idModulo'];
 $requerimiento=$_REQUEST['Requerimiento'];
 $respuesta=$_REQUEST['Respuesta'];
-/*
-echo $idAplicativo."<br>".
-$id."<br>".
-$idModulo."<br>".
-$requerimiento."<br>".
-$respuesta."<br>";
-*/
+//armo variable  con datos a enviar
 $actualizar="{
     \r\n  \"idFAQ\": ".$id.",
     \r\n  \"IdAplicativo\": ".$idAplicativo.",
@@ -28,6 +22,7 @@ $actualizar="{
     \r\n  \"Usuario\": ".$idUser.",
     \r\n  \"DirIp\": \"".$ipUser."\"\r\n
     }";
+
 $curl = curl_init();
 
 curl_setopt_array($curl, array(

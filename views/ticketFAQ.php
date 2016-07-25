@@ -14,13 +14,13 @@
     </head>
     <body>
         
-        <table id="dg" title="FAQ" class="easyui-datagrid" style="width:100%;height:350px"
+        <table id="dg" title="FAQ" class="easyui-datagrid" style="width:100%;height:550px"
                url="../php/getAllFAQ.php"
                toolbar="#toolbar" pagination="true"
                rownumbers="true" fitColumns="true" singleSelect="true">
             <thead>
                 <tr>
-                    <th field="Requerimiento" width="50">Requerimiento</th>
+                    <th field="Requerimiento" width="50">Pregunta</th>
                     <th field="Respuesta" width="50">Respuesta</th>                    
                     <th field="IdAplicativo" width="50" >IdAplicativo</th>                    
                     <th field="IdModulo" width="50">IdModulo</th>                    
@@ -28,7 +28,7 @@
             </thead>
         </table>
         <div id="toolbar">
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">Nuevo Requqerimiento</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">Nueva Pregunta</a>
             <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">Editar</a>
         </div>
 
@@ -57,7 +57,7 @@
                 </div>       
                 <!--input requerimiento (pregunta) -->
                 <div class="row">
-                    <label>Requerimiento</label>
+                    <label>Pregunta</label>
                     <input name="Requerimiento" class="easyui-textbox" required="true" style="width:100%">
                 </div>
                 <!--input respuesta -->

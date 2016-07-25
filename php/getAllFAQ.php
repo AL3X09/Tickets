@@ -27,6 +27,7 @@ if ($err) {
 } else {
     echo $response;
 }
+//////////// TODO ////////////
     /* se desactiva recordar hacer una api que consulte los campo relacionados
     //envio respuesta a un array 
     $array = json_decode($response, true);

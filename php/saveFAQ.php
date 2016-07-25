@@ -1,11 +1,11 @@
 <?php
 require './functions.php';
-
+ini_set("display_errors", "on");
 session_start();
 $config = parse_ini_file('../config/config.ini');
 
 $classFunction = new functions(); // Clase funciones
-$idUser = intval($_SESSION["id"]);
+$idUser = $_SESSION["id"];
 $ipUser = htmlspecialchars($classFunction->getRealIp());
 
 $idAplicativo=$_REQUEST['idAplicativo'];
@@ -13,21 +13,16 @@ $idModulo=$_REQUEST['idModulo'];
 $requerimiento=$_REQUEST['Requerimiento'];
 $respuesta=$_REQUEST['Respuesta'];
 
-
-/*
-echo $idAplicativo."<br>".
-$idModulo."<br>".
-$requerimiento."<br>".
-$respuesta."<br>";
-*/
+//armo variable  con datos a enviar
 $insertar="{
     \r\n  \"IdAplicativo\": ".$idAplicativo.",
-    \r\n  \"IdModulo\": ".$idModulo",
+    \r\n  \"IdModulo\": ".$idModulo.",
     \r\n  \"Requerimiento\": \"".$requerimiento."\",
     \r\n  \"respuesta\": \"".$respuesta."\",
-    \r\n  \"Usuario\": ".$idUser",
-    \r\n  \"DirIp\": \"".$ipUser"\"\r\n
+    \r\n  \"Usuario\": ".$idUser.",
+    \r\n  \"DirIp\": \"".$ipUser."\"\r\n
     }";
+
 
 $curl = curl_init();
 
