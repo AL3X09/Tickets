@@ -34,9 +34,9 @@
 
         <div id="dlg" class="easyui-dialog" style="width:700px;height:500px;padding:10px 20px"
              closed="true" buttons="#dlg-buttons">
-            <div class="ftitle">Gestion de Requerimiento</div>
+            <div class="ftitle">Gestion de Preguntas</div>
             <form id="fm" method="post" novalidate>
-            <!--agrego bostrap para el contenidodel -->
+            <!--agrego boostrap para el contenido -->
             <!--combobox selecion ID aplicativo -->
                 <div class="row">
                   <label>Aplicativo</label>
