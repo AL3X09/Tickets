@@ -3,13 +3,15 @@
     <head>
         <meta charset="UTF-8">
         <title>Basic CRUD Application - jQuery EasyUI CRUD Demo</title>
-        <link rel="stylesheet" type="text/css" href="../libs/easyui/themes/material/easyui.css">
+        <link rel="stylesheet" type="text/css" href="../libs/easyui/themes/bootstrap/easyui.css">
         <link rel="stylesheet" type="text/css" href="../libs/easyui/themes/icon.css">
         <link rel="stylesheet" type="text/css" href="../libs/easyui/themes/color.css">
         <link rel="stylesheet" type="text/css" href="../libs/easyui/demo/demo.css">
-        <script type="text/javascript" src="../libs/easyui/jquery.min.js"></script>
-        <script type="text/javascript" src="../libs/easyui/jquery.min.js"></script>
-        <script id="script-lang" src="../libs/easyui/locale/easyui-lang-es.js"></script> 
+        <link href="../libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <script src="../libs/easyui/jquery.min.js" type="text/javascript"></script>
+        <script src="../libs/easyui/jquery.easyui.min.js" type="text/javascript"></script>
+        <script type="text/javascript" src="http://www.jeasyui.com/easyui/datagrid-scrollview.js"></script> <!-- Agregar ScrollView-->
+        <script id="script-lang" src="../libs/easyui/locale/easyui-lang-es.js"></script>
     </head>
     <body>
         <h2>Basic CRUD Application</h2>

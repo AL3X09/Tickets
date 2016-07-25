@@ -14,7 +14,7 @@
     </head>
     <body>
 
-        <table id="dg" title="Usuarios" class="easyui-datagrid" style="width:100%;height:250px"
+        <table id="dg" title="Usuarios" class="easyui-datagrid" style="width:100%;height:450px"
                url="../php/getUser.php"
                toolbar="#toolbar" pagination="true"
                rownumbers="true" fitColumns="true" singleSelect="true">
@@ -33,7 +33,10 @@
                     <th field="Celular" width="50">Celular</th>
                     <th field="DirIp" width="50">Direccion IP</th>
                     <th field="FechaCambio" width="50">Fecha de cambio</th>
-                    <th field="Fotografia" width="50">Foto</th>                    
+                    <th field="Fotografia" width="50">Foto</th>
+                    <th field="FechaUltimoIngreso" width="50">Fecha Ultimo Ingreso</th>
+                    <th field="PasswordReset" width="50">Password Reset</th>
+                    <th field="IdEspecialidad" width="50">IdEspecialidad</th>                    
                 </tr>
             </thead>
         </table>
@@ -43,7 +46,7 @@
 
         </div>
 
-        <div id="dlg" class="easyui-dialog" style="width:500px;height:400px;padding:10px 20px"
+        <div id="dlg" class="easyui-dialog" style="width:500px;height:650px;padding:10px 20px"
              closed="true" buttons="#dlg-buttons">
             <div class="ftitle">Informaci&oacute;n de usuario</div>
             <form id="fm" method="post" novalidate>
@@ -99,6 +102,18 @@
                         </td>
                     </tr>
                     <tr>
+                        <td>Especialidad</td>
+                        <td>
+                            <select class="easyui-combobox" name="IdEspecialidad" style="width:100%;height:26px" data-options="
+                                    url: '../php/getAllEspecialitys.php',
+                                    method: 'get',
+                                    valueField:'IdEspecialidad',
+                                    textField:'Nombre',
+                                    required:true">
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>Estado</td>
                         <td>
                             <select class="easyui-combobox" name="Estado" style="width:100%;height:26px">
@@ -145,7 +160,8 @@
 
             }
             function saveUser() {
-                if ($("input[name=Password]").val() == $("input[name=confirm]").val()) {
+                //clave1 = document.Password.clave1.value 
+                if ($("input[name=Pass]").val() === $("input[name=confirm]").val()) {
                     $('#fm').form('submit', {
                         url: url,
                         onSubmit: function () {

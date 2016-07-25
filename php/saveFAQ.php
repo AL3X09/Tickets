@@ -8,8 +8,8 @@ $classFunction = new functions(); // Clase funciones
 $idUser = $_SESSION["id"];
 $ipUser = htmlspecialchars($classFunction->getRealIp());
 
-$idAplicativo=$_REQUEST['idAplicativo'];
-$idModulo=$_REQUEST['idModulo'];
+$idAplicativo=$_REQUEST['IdAplicativo'];
+$idModulo=$_REQUEST['IdModulo'];
 $requerimiento=$_REQUEST['Requerimiento'];
 $respuesta=$_REQUEST['Respuesta'];
 

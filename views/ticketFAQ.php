@@ -22,8 +22,8 @@
                 <tr>
                     <th field="Requerimiento" width="50">Pregunta</th>
                     <th field="Respuesta" width="50">Respuesta</th>                    
-                    <th field="IdAplicativo" width="50" >IdAplicativo</th>                    
-                    <th field="IdModulo" width="50">IdModulo</th>                    
+                    <th field="nAplicativo" width="50" >Aplicativo</th>                    
+                    <th field="nModulo" width="50">Modulo</th>                    
                 </tr>
             </thead>
         </table>
@@ -40,7 +40,7 @@
             <!--combobox selecion ID aplicativo -->
                 <div class="row">
                   <label>Aplicativo</label>
-                  <select id="ap" class="easyui-combobox" name="idAplicativo" style="width:100%" data-options="
+                  <select id="ap" class="easyui-combobox" name="IdAplicativo" style="width:100%" data-options="
                                     valueField: 'IdAplicativo',
                                     textField: 'Nombre',
                                     url: '../php/getApp.php',
@@ -49,7 +49,7 @@
                 <!--combobox selecion ID modulo -->
                 <div class="row">
                   <label>Modulo</label>
-                  <select id="md" class="easyui-combobox" name="idModulo" style="width:100%" data-options="
+                  <select id="md" class="easyui-combobox" name="IdModulo" style="width:100%" data-options="
                                     valueField: 'IdModulo',
                                     textField: 'Nombre',
                                     url: '../php/getModules.php',

@@ -2,6 +2,7 @@
 
 //TODO implementar nueva API
 require './functions.php';
+ini_set("display_errors", "on");
 session_start();
 $config = parse_ini_file('../config/config.ini');
 $classFunction = new functions(); // Clase funciones
@@ -14,13 +15,38 @@ $nameUser = htmlspecialchars($_REQUEST["Nombre"]);
 $idCompany = intval($_REQUEST["IdEmpresa"]);
 $idCity = intval($_REQUEST["IdCiudad"]);
 $idRol = intval($_REQUEST["IdRol"]);
-
 $state = intval($_REQUEST["Estado"]);
-
 $mail = htmlspecialchars($_REQUEST["Email"]);
 $cellphone = htmlspecialchars($_REQUEST["Celular"]);
 $ipAddress = htmlspecialchars($_REQUEST["DirIp"]);
-$picture = null;
+$picture = NULL;
+$idEspecialidad=$_REQUEST["IdEspecialidad"];
+$FechaCambio = NULL;
+$FechaUltimoIngreso = NULL;
+$UsuarioSies = NULL;
+$PasswordReset = NULL;
+
+//variable con parametros a insertar
+$insertar="{
+\r\n  \"IdUsuario\": $identificationNumber,
+\r\n  \"Nombre\": \"$nameUser\",
+\r\n  \"Contrasena\": \"$password\",
+\r\n  \"Email\": \"$mail\",
+\r\n  \"Celular\": \"$cellphone\",
+\r\n  \"Fotografia\": \"$picture\",
+\r\n  \"IdRol\": $idRol,
+\r\n  \"IdEmpresa\": $idCompany,
+\r\n  \"IdCiudad\": $idCity,
+\r\n  \"Activo\": $state,
+\r\n  \"DirIp\": \"$ipAddress\",
+\r\n  \"FechaCambio\": \"$FechaCambio\",
+\r\n  \"FechaUltimoIngreso\": \"$FechaUltimoIngreso\",
+\r\n  \"UsuarioSies\": $UsuarioSies,
+\r\n  \"PasswordReset\": $PasswordReset,
+\r\n  \"Usuario\": $idUser,
+\r\n  \"DirIpUsuario\": \"$ipUser\",
+\r\n  \"IdEspecialidad\": $idEspecialidad\r\n
+}";
 
 $curl = curl_init();
 
@@ -33,7 +59,7 @@ curl_setopt_array($curl, array(
     CURLOPT_TIMEOUT => 30,
     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
     CURLOPT_CUSTOMREQUEST => "POST",
-    CURLOPT_POSTFIELDS => "{\r\n  \"IdUsuario\": $identificationNumber,\r\n  \"Nombre\": \"$nameUser\",\r\n  \"Password\": \"$password\",\r\n  \"IdEmpresa\": $idCompany,\r\n  \"IdCiudad\": $idCity,\r\n  \"IdRol\": $idRol,\r\n  \"Activo\": $state,\r\n  \"Email\": \"$mail\",\r\n  \"Celular\": \"$cellphone\",\r\n  \"DirIp\": \"$ipAddress\",\r\n  \"Fotografia\": \"$picture\",\r\n  \"Usuario\": $idUser,\r\n  \"DirIpUsuario\": \"$ipUser\"\r\n}",
+    CURLOPT_POSTFIELDS =>$insertar,
     CURLOPT_HTTPHEADER => array(
         "cache-control: no-cache",
         "content-type: application/json",
@@ -47,10 +73,13 @@ $err = curl_error($curl);
 curl_close($curl);
 
 if ($err) {
-    echo "cURL Error #:" . $err;
+  echo "cURL Error #:" . $err;
 } else {
 //    echo $response;
     $result = (is_numeric($response)) ? "Usuario ingresado con exito" : "Ha ocurrido un error, por favor intente nuevamente. $response";
     echo json_encode($result);
 }
 
+/*OLD
+CURLOPT_POSTFIELDS => "{\r\n  \"IdUsuario\": $identificationNumber,\r\n  \"Nombre\": \"$nameUser\",\r\n  \"Password\": \"$password\",\r\n  \"IdEmpresa\": $idCompany,\r\n  \"IdCiudad\": $idCity,\r\n  \"IdRol\": $idRol,\r\n  \"Activo\": $state,\r\n  \"Email\": \"$mail\",\r\n  \"Celular\": \"$cellphone\",\r\n  \"DirIp\": \"$ipAddress\",\r\n  \"Fotografia\": \"$picture\",\r\n  \"Usuario\": $idUser,\r\n  \"DirIpUsuario\": \"$ipUser\"\r\n}",
+    

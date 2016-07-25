@@ -13,7 +13,7 @@
     </head>
     <body>
 
-        <table id="dg" title="Prioridades" class="easyui-datagrid" style="width:700px;height:250px"
+        <table id="dg" title="Prioridades" class="easyui-datagrid" style="width:700px;height:450px"
                url="../php/getPriority.php"
                toolbar="#toolbar" pagination="true"
                rownumbers="true" fitColumns="true" singleSelect="true">

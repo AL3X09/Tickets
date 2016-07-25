@@ -1,6 +1,6 @@
 <?php
 require './functions.php';
-
+ini_set("display_errors", "on");
 session_start();
 $config = parse_ini_file('../config/config.ini');
 
@@ -8,8 +8,8 @@ $classFunction = new functions(); // Clase funciones
 $idUser = intval($_SESSION["id"]);
 $ipUser = htmlspecialchars($classFunction->getRealIp());
 $id=$_REQUEST['id'];
-$idAplicativo=$_REQUEST['idAplicativo'];
-$idModulo=$_REQUEST['idModulo'];
+$idAplicativo=$_REQUEST['IdAplicativo'];
+$idModulo=$_REQUEST['IdModulo'];
 $requerimiento=$_REQUEST['Requerimiento'];
 $respuesta=$_REQUEST['Respuesta'];
 //armo variable  con datos a enviar

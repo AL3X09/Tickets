@@ -8,7 +8,7 @@ $idUser = $_SESSION["id"];
 $ipUser = $classFunctions->getRealIp();
 $config = parse_ini_file('../config/config.ini');
 
-$values = "{" . $classFunctions->concatComma($classFunctions->validateRequestParameter("IdModulo", "idModule")) .
+$values = "{". $classFunctions->concatComma($classFunctions->validateRequestParameter("IdModulo", "idModule")) .
         $classFunctions->concatComma($classFunctions->validateRequestParameter("Nombre", "name")) .
         $classFunctions->concatComma($classFunctions->validateRequestParameter("IdAplicativo", "app")) . "\r\n  \"Usuario\": $idUser,\r\n  \"DirIp\": \"$ipUser\"\r\n}";
 

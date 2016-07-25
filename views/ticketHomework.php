@@ -22,7 +22,7 @@
                 <tr>
                     <th field="IdTarea" width="50">#</th>
                     <th field="Nombre" width="50">Nombre</th>
-                    <th field="IdResponsableTarea" width="50">Responsable Tarea</th>
+                    <th field="nResponsableTarea" width="50">Responsable Tarea</th>
                     <th field="FechaFinEstimadoTarea" width="50">Fecha fin estimado de tarea</th>
                     <th field="FechaInicioTarea" width="50">Fecha Inicio de tarea</th>
                     <th field="FechaFinTarea" width="50">Fecha fin de tarea</th>
