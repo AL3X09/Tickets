@@ -35,7 +35,7 @@
                     <th field="Email" width="50">Correo</th>
                     <th field="Celular" width="50">Celular</th>
                     <th field="DirIp" width="50">Direccion IP</th>
-                    <th field="Fotografia" width="50" formatter="formatPrice" >Foto</th>
+                    <<th field="Fotografia" width="14" formatter="formatPrice" >Foto</th>
                     <!--se quita no se se permite mostrar en vista
                     <th field="FechaCambio" width="50">Fecha de cambio</th>
                     <th field="FechaUltimoIngreso" width="50">Fecha Ultimo Ingreso</th>
@@ -49,100 +49,92 @@
 
         </div>
 
-        <div id="dlg" class="easyui-dialog" style="width:600px;height:650px;padding:10px 20px"
+        <div id="dlg" class="easyui-dialog" style="width:1000px;height:450px;padding:10px 20px"
              closed="true" buttons="#dlg-buttons">
             <div class="ftitle">Informaci&oacute;n de usuario</div>
-            <form id="fm" method="post" enctype="multipart/form-data" novalidate>        
-            <table style="width:100%">
-                <tbody>
-                    <tr>
-                        <td><lable>nombre</lable>
-                        <input class="easyui-textbox" type="text" name="Nombre" style="width:100%"  data-options="required:true" ></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label>Cedula</label>
-                        <input class="easyui-textbox" type="text" name="IdUsuario" style="width:100%" data-options="required:true"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label>Contrase&ntilde;a</label>
-                        <input class="easyui-textbox" type="password" value="" name="Pass" style="width:100%" data-options="required:true"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                       <td><label>Confirmar Contrase&ntilde;a</label>
-                        <input class="easyui-textbox" type="password" name="confirm" style="width:100%" data-options="required:true"></input></td>
-                    </tr>
-                    <tr>
-                        <td><label>Empresa</label>
-                            <select class="easyui-combobox" name="IdEmpresa" style="width:100%;height:26px" data-options="
+            <form id="fm" method="post" enctype="multipart/form-data" novalidate>   
+           <div class="row">
+                    <div class="col-md-3">
+                    <lable>Nombre</lable>
+                    <input class="easyui-textbox" type="text" name="Nombre" style="width:100%;height:30px;"  data-options="required:true" ></input>
+                    </div>                
+                    <div class="col-md-3">
+                    <label>Cedula</label>
+                    <input class="easyui-textbox" type="text" name="IdUsuario" style="width:100%;height:30px;" data-options="required:true"></input>
+                    </div>
+                    <div class="col-md-3">
+                    <label>Contrase&ntilde;a</label>
+                    <input class="easyui-textbox" type="password" value="" name="Pass" style="width:100%;height:30px;" data-options="required:true"></input>
+                    </div>
+                    <div class="col-md-3">
+                    <label>Confirmar Contrase&ntilde;a</label>
+                    <input class="easyui-textbox" type="password" name="confirm" style="width:100%;height:30px;" data-options="required:true"></input>
+                    </div>
+               </div>
+               <div class="row">
+                   <div class="col-md-3">
+                        <label>Empresa</label>
+                            <select class="easyui-combobox" name="IdEmpresa" style="width:100%;height:30px;" data-options="
                                     url: '../php/getCompany.php',
                                     method: 'get',
                                     valueField:'IdEmpresa',
                                     textField:'Nombre'">
                             </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label>Cuidad</label>
-                            <select class="easyui-combobox" name="IdCiudad"
-                                    style="width:100%;height:26px" data-options="
+                    </div>                        
+                    <div class="col-md-3">
+                        <label>Cuidad</label>
+                            <select class="easyui-combobox" name="IdCiudad" style="width:100%;height:30px;" data-options="
                                     url: '../php/getCity.php',
                                     method: 'get',
                                     valueField:'IdCiudad',
                                     textField:'Nombre'">                                
                             </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label>Rol</label>
-                            <select class="easyui-combobox" name="IdRol" style="width:100%;height:26px" data-options="
+                    </div>
+                    <div class="col-md-3">
+                        <label>Rol</label>
+                            <select class="easyui-combobox" name="IdRol" style="width:100%;height:30px;" data-options="
                                     url: '../php/getRol.php',
                                     method: 'get',
                                     valueField:'IdRol',
                                     textField:'Nombre'">                                
                             </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label>Especialidad</label>
-                            <select class="easyui-combobox" name="IdEspecialidad" style="width:100%;height:26px" data-options="
+                         </div>
+                   <div class="col-md-3">
+                        <label>Especialidad</label>
+                            <select class="easyui-combobox" name="IdEspecialidad" style="width:100%;height:30px;" data-options="
                                     url: '../php/getAllEspecialitys.php',
                                     method: 'get',
                                     valueField:'IdEspecialidad',
                                     textField:'Nombre',
                                     required:true">
                             </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label>Estado</label>
-                            <select class="easyui-combobox" name="Estado" style="width:100%;height:26px">
+                                </div>
+               </div>
+              <div class="row">
+                <div class="col-md-3">
+                        <label>Estado</label>
+                            <select class="easyui-combobox" name="Estado" style="width:100%;height:30px;">
                                 <option value="1">Activo</option>
                                 <option value="0">Inactivo</option>
                             </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label>Correo</label>
-                        <input class="easyui-textbox" type="text" name="Email" style="width:100%" data-options="required:true"></input></td>
-                    </tr>
-                    <tr>
-                        <td><label>Celular</label>
-                        <input class="easyui-textbox" type="text" name="Celular" style="width:100%" data-options="required:true"></input></td>
-                    </tr>
-                    <tr>
-                        <td><label>Direcci&oacute;n IP</label>
-                        <input class="easyui-textbox" type="text" name="DirIp" style="width:100%" data-options="required:true"></input></td>
-                    </tr>
-                    <tr>                    
-                       <td><label>Foto</label>
-                       <input class="f1 easyui-filebox"  name="foto" id="foto" data-options="prompt:'Escojer una foto...'" style="width:100%">
-                       </td>
-                    </tr>
-                    </tbody>
-                </table>               
+                    </div>
+                   <div class="col-md-3">
+                        <label>Correo</label>
+                        <input class="easyui-textbox" type="text" name="Email" style="width:100%;height:30px;" data-options="required:true"></input>
+                   </div>
+                    <div class="col-md-3">
+                        <label>Celular</label>
+                        <input class="easyui-textbox" type="text" name="Celular" style="width:100%;height:30px;" data-options="required:true"></input>
+                   </div>
+                   <div class="col-md-3">
+                        <label>Direcci&oacute;n IP</label>
+                        <input class="easyui-textbox" type="text" name="DirIp" style="width:100%;height:30px;" data-options="required:true"></input>
+                    </div>
+                   <div class="col-md-4">                   
+                       <label>Foto</label>
+                       <input class="f1 easyui-filebox"  name="foto" id="foto" data-options="prompt:'Escojer una foto...'" style="width:100%;height:30px;">
+                    </div>
+              </div>           
             </form>
         </div>
         <div id="dlg-buttons">
