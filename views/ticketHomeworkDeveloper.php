@@ -102,7 +102,7 @@
                     $.messager.confirm('Confirm', 'Desea iniciar esta tarea?', function (r) {
                         if (r) {
                             $('#fm').form('load', row);
-                            $.post('../php/startHomework.php', {id: row.IdTarea,nombre: row.Nombre,fechaestimado: row.FechaFinEstimadoTarea,idresponsable: row.IdResponsableTarea}, function (result) {
+                            $.post('../php/startHomework.php', {id: row.IdTarea,nombre: row.Nombre,fechaestimado: row.FechaFinEstimadoTarea,idresponsable: row.IdResponsableTarea,FechaInicioTarea: row.FechaInicioTarea}, function (result) {
                                 result.toString();
                                 if (result === "Tarea iniciada") {
                                     $('#dg').datagrid('reload');    // reload the user data
