@@ -21,12 +21,12 @@
             <thead>
                 <tr>
                     <th field="IdAclaraciones" width="5">#</th>
-                    <th field="nRequerimiento" width="30">Requerimiento</th>
+                    <!-- <th field="nRequerimientoAclara" width="30">Requerimiento</th>-->
                     <th field="idRequerimiento" width="80" hidden="true">IdRequerimiento</th>
                     <th field="Aclaracion" width="80">Aclaracion</th>
                     <th field="FechaCreacion" width="30">Fecha Creacion</th>                    
-                    <th field="nUsuario" width="50">Usuario</th>                    
-                    <th field="IdUsuario" width="50" hidden="true">IdUsuario</th>                    
+                    <th field="nUsuarioAclara" width="50">Usuario</th>                    
+                    <th field="IdUsuarioAclara" width="50" hidden="true">IdUsuario</th>                    
                 </tr>
             </thead>
         </table>
@@ -42,7 +42,7 @@
                 <div class="fitem">
                     <div class="row">   
                         <label>Requerimiento</label>
-                        <input id="cc" class="easyui-combobox" name="nRequerimiento" style="width:100%" data-options="
+                        <input id="cc" class="easyui-combobox" name="nRequerimientoAclara" style="width:100%" data-options="
                                 valueField:'IdRequerimiento',
                                 textField:'Requerimiento',
                                 required: 'true',

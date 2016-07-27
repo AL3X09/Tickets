@@ -33,6 +33,7 @@ if ($err) {
   echo "cURL Error #:" . $err;
 } else {
   //echo $response;
+  
 /*
 //tener en cuenta si hay modificaciones en las consultas y no aparecen los datos es porque
 //estan en un array asosiativo para tener mejor control de este.
@@ -53,6 +54,7 @@ if ($err) {
             "Aclaracion" => $value["Aclaracion"],
             "FechaCreacion" => str_replace("T"," ",substr($value["FechaCreacion"],0,16)), // con str_ireplace remplael valor t que me retona la consulta y substr controlo las cadenas a mostar
             "IdUsuarioAclara" =>$value["IdUsuarioAclara"],
+            "nUsuarioAclara" =>$value["nUsuarioAclara"],
         );
         array_push($result, $row);      //agrego valores de row en result 
     }

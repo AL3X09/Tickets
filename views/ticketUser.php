@@ -7,6 +7,7 @@
         <link rel="stylesheet" type="text/css" href="../libs/easyui/themes/icon.css">
         <link rel="stylesheet" type="text/css" href="../libs/easyui/themes/color.css">
         <link rel="stylesheet" type="text/css" href="../libs/easyui/demo/demo.css">
+        <link rel="stylesheet" type="text/css" href="../libs/bootstrap/css/bootstrap.min.css">
         <script type="text/javascript" src="../libs/easyui/jquery.min.js"></script>
         <script type="text/javascript" src="../libs/easyui/jquery.easyui.min.js"></script>
         <script src="../js/functions.js" type="text/javascript"></script>
@@ -23,17 +24,18 @@
                     <th field="IdUsuario" width="50">Cedula</th>
                     <th field="Nombre" width="50">Nombre</th>
                     <th field="IdEmpresa" width="50" hidden="true">id empresa</th>
-                    <th field="NombreEmpresa" width="50">Empresa</th>
+                    <th field="nEmpresa" width="50">Empresa</th>
                     <th field="IdCiudad" width="50"  hidden="true">idCuidad</th>
-                    <th field="NombreCiudad" width="50">Cuidad</th>
+                    <th field="nCiudad" width="50">Cuidad</th>
                     <th field="IdRol" width="50" hidden="true">idRol</th>
-                    <th field="NombreRol" width="50">Rol</th>
-                    <th field="IdEspecialidad" width="50">Especialidad</th>
-                    <th field="Activo" width="50">Activo</th>
+                    <th field="nRol" width="50">Rol</th>
+                    <th field="IdEspecialidad" width="50" hidden="true">IdEspecialidad</th>
+                    <th field="nEspecialidad" width="50">Especialidad</th>
+                    <th field="Activo" width="50" hidden="true">Activo</th>
                     <th field="Email" width="50">Correo</th>
                     <th field="Celular" width="50">Celular</th>
                     <th field="DirIp" width="50">Direccion IP</th>
-                    <th field="Fotografia" width="50">Foto</th>
+                    <th field="Fotografia" width="50" formatter="formatPrice" >Foto</th>
                     <!--se quita no se se permite mostrar en vista
                     <th field="FechaCambio" width="50">Fecha de cambio</th>
                     <th field="FechaUltimoIngreso" width="50">Fecha Ultimo Ingreso</th>
@@ -47,30 +49,33 @@
 
         </div>
 
-        <div id="dlg" class="easyui-dialog" style="width:500px;height:650px;padding:10px 20px"
+        <div id="dlg" class="easyui-dialog" style="width:600px;height:650px;padding:10px 20px"
              closed="true" buttons="#dlg-buttons">
             <div class="ftitle">Informaci&oacute;n de usuario</div>
-            <form id="fm" method="post" novalidate>
-                <table cellpadding="5">
+            <form id="fm" method="post" enctype="multipart/form-data" novalidate>        
+            <table style="width:100%">
+                <tbody>
                     <tr>
-                        <td>Nombre</td>
-                        <td><input class="easyui-textbox" type="text" name="Nombre" data-options="required:true"></input></td>
+                        <td><lable>nombre</lable>
+                        <input class="easyui-textbox" type="text" name="Nombre" style="width:100%"  data-options="required:true" ></input>
+                        </td>
                     </tr>
                     <tr>
-                        <td>Cedula</td>
-                        <td><input class="easyui-textbox" type="text" name="IdUsuario" data-options="required:true"></input></td>
+                        <td><label>Cedula</label>
+                        <input class="easyui-textbox" type="text" name="IdUsuario" style="width:100%" data-options="required:true"></input>
+                        </td>
                     </tr>
                     <tr>
-                        <td>Contrase&ntilde;a</td>
-                        <td><input class="easyui-textbox" type="password" value="" name="Pass" data-options="required:true"></input></td>
+                        <td><label>Contrase&ntilde;a</label>
+                        <input class="easyui-textbox" type="password" value="" name="Pass" style="width:100%" data-options="required:true"></input>
+                        </td>
                     </tr>
                     <tr>
-                        <td>Confirmar Contrase&ntilde;a</td>
-                        <td><input class="easyui-textbox" type="password" name="confirm" data-options="required:true"></input></td>
+                       <td><label>Confirmar Contrase&ntilde;a</label>
+                        <input class="easyui-textbox" type="password" name="confirm" style="width:100%" data-options="required:true"></input></td>
                     </tr>
                     <tr>
-                        <td>Empresa</td>
-                        <td>
+                        <td><label>Empresa</label>
                             <select class="easyui-combobox" name="IdEmpresa" style="width:100%;height:26px" data-options="
                                     url: '../php/getCompany.php',
                                     method: 'get',
@@ -80,8 +85,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>Cuidad</td>
-                        <td>
+                        <td><label>Cuidad</label>
                             <select class="easyui-combobox" name="IdCiudad"
                                     style="width:100%;height:26px" data-options="
                                     url: '../php/getCity.php',
@@ -92,8 +96,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>Rol</td>
-                        <td>
+                        <td><label>Rol</label>
                             <select class="easyui-combobox" name="IdRol" style="width:100%;height:26px" data-options="
                                     url: '../php/getRol.php',
                                     method: 'get',
@@ -103,8 +106,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>Especialidad</td>
-                        <td>
+                        <td><label>Especialidad</label>
                             <select class="easyui-combobox" name="IdEspecialidad" style="width:100%;height:26px" data-options="
                                     url: '../php/getAllEspecialitys.php',
                                     method: 'get',
@@ -115,8 +117,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>Estado</td>
-                        <td>
+                        <td><label>Estado</label>
                             <select class="easyui-combobox" name="Estado" style="width:100%;height:26px">
                                 <option value="1">Activo</option>
                                 <option value="0">Inactivo</option>
@@ -124,18 +125,24 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>Correo</td>
-                        <td><input class="easyui-textbox" type="text" name="Email" data-options="required:true"></input></td>
+                        <td><label>Correo</label>
+                        <input class="easyui-textbox" type="text" name="Email" style="width:100%" data-options="required:true"></input></td>
                     </tr>
                     <tr>
-                        <td>Celular</td>
-                        <td><input class="easyui-textbox" type="text" name="Celular" data-options="required:true"></input></td>
+                        <td><label>Celular</label>
+                        <input class="easyui-textbox" type="text" name="Celular" style="width:100%" data-options="required:true"></input></td>
                     </tr>
                     <tr>
-                        <td>Direcci&oacute;n IP</td>
-                        <td><input class="easyui-textbox" type="text" name="DirIp" data-options="required:true"></input></td>
-                    </tr>                
-                </table>
+                        <td><label>Direcci&oacute;n IP</label>
+                        <input class="easyui-textbox" type="text" name="DirIp" style="width:100%" data-options="required:true"></input></td>
+                    </tr>
+                    <tr>                    
+                       <td><label>Foto</label>
+                       <input class="f1 easyui-filebox"  name="foto" id="foto" data-options="prompt:'Escojer una foto...'" style="width:100%">
+                       </td>
+                    </tr>
+                    </tbody>
+                </table>               
             </form>
         </div>
         <div id="dlg-buttons">
@@ -143,6 +150,7 @@
             <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancelar</a>
         </div>
         <script type="text/javascript">
+        
             var url;
             function newUser() {
                 $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nuevo Usuario');
@@ -190,6 +198,10 @@
                     alert("Las contraseñas no coinciden por favor intente otra vez");
                 }
             }
+
+            function formatPrice(val,row){
+                     return '<img src="'+val+'" height="42" width="42">';
+            }            
         </script>
         <style type="text/css">
             #fm{

@@ -1,6 +1,6 @@
 <?php
 
-//TODO implementar nueva API
+//TODO las fotos
 require './functions.php';
 ini_set("display_errors", "on");
 session_start();
@@ -19,12 +19,13 @@ $state = intval($_REQUEST["Estado"]);
 $mail = htmlspecialchars($_REQUEST["Email"]);
 $cellphone = htmlspecialchars($_REQUEST["Celular"]);
 $ipAddress = htmlspecialchars($_REQUEST["DirIp"]);
-$picture = NULL;
 $idEspecialidad=$_REQUEST["IdEspecialidad"];
 $FechaCambio = NULL;
 $FechaUltimoIngreso = NULL;
 $UsuarioSies = NULL;
 $PasswordReset = NULL;
+$picture = $_FILES['foto']['name'];
+$directorio_destino="../files/user_files";    //ruta de directorio para almacenar las imagenes
 
 //variable con parametros a insertar
 $insertar="{
@@ -33,7 +34,7 @@ $insertar="{
 \r\n  \"Contrasena\": \"$password\",
 \r\n  \"Email\": \"$mail\",
 \r\n  \"Celular\": \"$cellphone\",
-\r\n  \"Fotografia\": \"$picture\",
+\r\n  \"Fotografia\": \"$directorio_destino/$picture\",
 \r\n  \"IdRol\": $idRol,
 \r\n  \"IdEmpresa\": $idCompany,
 \r\n  \"IdCiudad\": $idCity,
@@ -76,8 +77,43 @@ if ($err) {
   echo "cURL Error #:" . $err;
 } else {
 //    echo $response;
-    $result = (is_numeric($response)) ? "Usuario ingresado con exito" : "Ha ocurrido un error, por favor intente nuevamente. $response";
-    echo json_encode($result);
+
+/**trabajo la foto del usuario**/
+//comprobamos si ha ocurrido un error en el archivo.
+if ( !isset($_FILES['foto']) || $_FILES['foto']["error"] > 0){
+	echo "ha ocurrido un error cargando la foto";
+} else {                        
+    
+    //valido que exista el destino si no exite lo creo
+    if (!file_exists($directorio_destino)) {
+        mkdir($directorio_destino);
+    }
+	//ahora vamos a verificar si el tipo de archivo es un tipo de imagen permitido.
+	//y que el tamano del archivo no exceda los 16MB
+	$permitidos = array("image/jpg", "image/jpeg", "image/gif", "image/png");
+	$limite_kb = 16384;
+
+	if (in_array($_FILES['foto']['type'], $permitidos) && $_FILES['foto']['size'] <= $limite_kb * 1024){
+
+		//este es el archivo temporal
+		$imagen_temporal  = $_FILES['foto']['tmp_name'];
+		//valido si se mueve el archivo
+        if (move_uploaded_file($imagen_temporal, $directorio_destino.'/'.$picture))
+            {
+                // print("Archivo gurdado...");
+                //respondo mensaje
+            $result = (is_numeric($response)) ? "Usuario ingresado con exito" : "Ha ocurrido un error, por favor intente nuevamente. $response";
+           
+            }else{
+                 $result=die("Error al subir!");
+            }
+	} else {
+		 $result= "archivo no permitido, es tipo de archivo prohibido o excede el tamano de $limite_kb Kilobytes";
+	}
+}
+/**fin de trabajo de la foto del usuario*/
+
+ echo json_encode($result);
 }
 
 /*OLD
