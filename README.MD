@@ -43,8 +43,8 @@ incluir a los archivos las siguentes lineas de configuraciones
     
     * example 
     $config["server"] . "/api/Aclaraciones/AclaracionesInsertar"
-### Ejemplo capturar valor de la api en un Array 
-con el siguiente codigo se controlarla la respuesta de la api y luego se trabaja con un array asociativo para
+### Ejemplo capturar y trabajar el retorno de la api en un Array 
+con el siguiente codigo se controla la respuesta de la api y luego se trabaja con un array asociativo para
 posteriormente imprimirla en la vista .
 
 ```sh
@@ -55,7 +55,7 @@ posteriormente imprimirla en la vista .
 */
     //envio respuesta a un array 
     $array = json_decode($response, true);
-    //valido si no un array
+    //valido si no es un array
     if (!is_array($array)) {
     var_dump($array);
     }else {                         //si es un array se trabaja 
@@ -82,4 +82,4 @@ posteriormente imprimirla en la vista .
 Manuales y gias 
 --------------------
 * [manual de git colaborativo](http://www.cristalab.com/tutoriales/como-colaborar-en-un-proyecto-en-github-c112327l/)
-* [Edcicion del READ.ME](http://dillinger.io/)
+* [Edcicion del README](http://dillinger.io/)

@@ -27,7 +27,7 @@ $curl = curl_init();
 
 curl_setopt_array($curl, array(
   CURLOPT_PORT => "8016",
-  CURLOPT_URL => "http://server:8016/api/FAQ/FAQActualizar",
+  CURLOPT_URL => $config['server'] . "/api/FAQ/FAQActualizar",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => "",
   CURLOPT_MAXREDIRS => 10,

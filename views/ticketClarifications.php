@@ -2,44 +2,68 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Tipos de linea de Tiempo</title>
-        <link rel="stylesheet" type="text/css" href="../libs/easyui/themes/bootstrap/easyui.css">
+        <title>MODULO ACLARACIONES</title>
+        <link rel="stylesheet" type="text/css" href="../libs/easyui/themes/material/easyui.css">
         <link rel="stylesheet" type="text/css" href="../libs/easyui/themes/icon.css">
         <link rel="stylesheet" type="text/css" href="../libs/easyui/themes/color.css">
         <link rel="stylesheet" type="text/css" href="../libs/easyui/demo/demo.css">
-        <link href="../libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <script src="../libs/easyui/jquery.min.js" type="text/javascript"></script>
-        <script src="../libs/easyui/jquery.easyui.min.js" type="text/javascript"></script>
-        <script type="text/javascript" src="http://www.jeasyui.com/easyui/datagrid-scrollview.js"></script> <!-- Agregar ScrollView-->
-        <script id="script-lang" src="../libs/easyui/locale/easyui-lang-es.js"></script>
+        <link rel="stylesheet" type="text/css" href="../libs/bootstrap/css/bootstrap.min.css">
+        <script type="text/javascript" src="../libs/easyui/jquery.min.js"></script>
+        <script type="text/javascript" src="../libs/easyui/jquery.easyui.min.js"></script>
+        <script id="script-lang" src="../libs/easyui/locale/easyui-lang-es.js"></script> 
     </head>
     <body>
-        <h2>Tipos de linea de tiempo</h2>
-
-        <table id="dg" title="Tipo de linea de tiempo" class="easyui-datagrid" style="width:700px;height:350px"
-               url="../php/getTypeTimeLine.php"
+        
+        <table id="dg" title="Aclaraciones" class="easyui-datagrid" style="width:100%;height:450px"
+               url="../php/getAllClarifications.php"
                toolbar="#toolbar" pagination="true"
                rownumbers="true" fitColumns="true" singleSelect="true">
             <thead>
                 <tr>
-                    <th field="IdTipoLineaTiempo" width="50">#</th>
-                    <th field="Nombre" width="50">Nombre</th>                
+                    <th field="IdAclaraciones" width="5">#</th>
+                    <th field="nRequerimiento" width="30">Requerimiento</th>
+                    <th field="idRequerimiento" width="80" hidden="true">IdRequerimiento</th>
+                    <th field="Aclaracion" width="80">Aclaracion</th>
+                    <th field="FechaCreacion" width="30">Fecha Creacion</th>                    
+                    <th field="nUsuario" width="50">Usuario</th>                    
+                    <th field="IdUsuario" width="50" hidden="true">IdUsuario</th>                    
                 </tr>
             </thead>
         </table>
         <div id="toolbar">
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">Nuevo</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">Nueva Aclaracion</a>
             <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">Editar</a>
         </div>
 
-        <div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
+        <div id="dlg" class="easyui-dialog" style="width:400px;height:380px;padding:10px 20px"
              closed="true" buttons="#dlg-buttons">
-            <div class="ftitle">Tipo</div>
+            <div class="ftitle">Gestion de Aclaraciones</div>
             <form id="fm" method="post" novalidate>
                 <div class="fitem">
-                    <label>Nombre</label>
-                    <input name="Nombre" class="easyui-textbox" required="true">
-                </div>            
+                    <div class="row">   
+                        <label>Requerimiento</label>
+                        <input id="cc" class="easyui-combobox" name="nRequerimiento" style="width:100%" data-options="
+                                valueField:'IdRequerimiento',
+                                textField:'Requerimiento',
+                                required: 'true',
+                                url:'../php/getRequirements_original.php'
+                            ">
+                    </div>
+                    <div class=row>
+                        <label>Aclaracion</label>
+                        <input name="Aclaracion" class="easyui-textbox" required="true" style="width:100%">
+                    </div>
+                    <!-- no se utiliza ya que la aplicaion recive los datos por session y procesos internos
+                    <label>Fecha Creacion</label>
+                    <input name="FechaCreacion" class="easyui-textbox" required="true">
+                    <label>Usuario</label>
+                    <input id="cc" class="easyui-combobox" name="nUsuario" data-options="
+                            valueField:'IdUsuario',
+                            textField:'Nombre',
+                            required: 'true',
+                            url:'../php/getUser.php'
+                        ">-->                    
+                </div>                
             </form>
         </div>
         <div id="dlg-buttons">
@@ -51,14 +75,14 @@
             function newUser() {
                 $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nuevo');
                 $('#fm').form('clear');
-                url = '../php/saveTypeLineTime.php';
+                url = '../php/saveClarification.php';
             }
             function editUser() {
                 var row = $('#dg').datagrid('getSelected');
                 if (row) {
                     $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Editar');
                     $('#fm').form('load', row);
-                    url = '../php/updateTypeLineTime.php?id=' + row.IdTipoLineaTiempo;
+                    url = '../php/updateClarification.php?id=' + row.IdAclaraciones;
                 }
             }
             function saveUser() {
@@ -68,7 +92,7 @@
                         return $(this).form('validate');
                     },
                     success: function (result) {
-                        var result = eval('(' + result + ')');
+                        var result = eval('(' + result + ')');                        
                         if (result.errorMsg) {
                             $.messager.show({
                                 title: 'Error',
@@ -82,7 +106,7 @@
                             });
                             $('#dlg').dialog('close');        // close the dialog
                             $('#dg').datagrid('reload');    // reload the user data
-                        }
+                     }                    
                     }
                 });
             }            

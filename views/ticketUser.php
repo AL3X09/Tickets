@@ -28,15 +28,16 @@
                     <th field="NombreCiudad" width="50">Cuidad</th>
                     <th field="IdRol" width="50" hidden="true">idRol</th>
                     <th field="NombreRol" width="50">Rol</th>
+                    <th field="IdEspecialidad" width="50">Especialidad</th>
                     <th field="Activo" width="50">Activo</th>
                     <th field="Email" width="50">Correo</th>
                     <th field="Celular" width="50">Celular</th>
                     <th field="DirIp" width="50">Direccion IP</th>
-                    <th field="FechaCambio" width="50">Fecha de cambio</th>
                     <th field="Fotografia" width="50">Foto</th>
+                    <!--se quita no se se permite mostrar en vista
+                    <th field="FechaCambio" width="50">Fecha de cambio</th>
                     <th field="FechaUltimoIngreso" width="50">Fecha Ultimo Ingreso</th>
-                    <th field="PasswordReset" width="50">Password Reset</th>
-                    <th field="IdEspecialidad" width="50">IdEspecialidad</th>                    
+                    <th field="PasswordReset" width="50">Password Reset</th>-->                                        
                 </tr>
             </thead>
         </table>

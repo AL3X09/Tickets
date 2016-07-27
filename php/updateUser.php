@@ -1,6 +1,6 @@
 <?php
 
-//TODO implementar nueva API
+//TODO poner joins
 require './functions.php';
 ini_set("display_errors", "on");
 session_start();
