@@ -100,7 +100,7 @@ if ( !isset($_FILES['foto']) || $_FILES['foto']["error"] > 0){
 		//este es el archivo temporal
 		$imagen_temporal  = $_FILES['foto']['tmp_name'];
 		//valido si se mueve el archivo
-        if (move_uploaded_file($imagen_temporal, $directorio_destino.'/'.$picture))
+        if (copy($imagen_temporal, $directorio_destino.'/'.$picture))
             {
             //respondo mensaje
             $result = (is_numeric($response)) ? "Usuario actualizado con exito" : "Ha ocurrido un error, por favor intente nuevamente. $response";
