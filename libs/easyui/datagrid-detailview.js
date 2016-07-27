@@ -1,6 +1,10 @@
 ﻿/**
+<<<<<<< HEAD
  * js para ver detalles
  *
+=======
+ * archivo necesario
+>>>>>>> refs/remotes/origin/master
  */
 $.extend($.fn.datagrid.defaults, {
 	autoUpdateDetail: true  // Define if update the row detail content when update a row

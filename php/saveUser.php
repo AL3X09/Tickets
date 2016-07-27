@@ -1,6 +1,6 @@
 <?php
 
-//TODO las fotos
+//TODO validar reset de password
 require './functions.php';
 ini_set("display_errors", "on");
 session_start();

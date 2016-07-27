@@ -25,8 +25,12 @@ $values = "{"
         . $classFunctions->validateRequestParameter("FechaInicioDesarrollo", "FechaInicioDesarrollo")
         . "}";
 //echo $values;
+<<<<<<< HEAD
 session_start();
 $config = parse_ini_file('../config/config.ini');
+=======
+$config = parse_ini_file('config.ini');
+>>>>>>> refs/remotes/origin/master
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
