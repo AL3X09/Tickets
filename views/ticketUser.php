@@ -35,7 +35,7 @@
                     <th field="Email" width="50">Correo</th>
                     <th field="Celular" width="50">Celular</th>
                     <th field="DirIp" width="50">Direccion IP</th>
-                    <<th field="Fotografia" width="14" formatter="formatPrice" >Foto</th>
+                    <th field="Fotografia" width="14" formatter="formatPrice" >Foto</th>
                     <!--se quita no se se permite mostrar en vista
                     <th field="FechaCambio" width="50">Fecha de cambio</th>
                     <th field="FechaUltimoIngreso" width="50">Fecha Ultimo Ingreso</th>
