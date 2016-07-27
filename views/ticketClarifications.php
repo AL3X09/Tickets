@@ -11,9 +11,9 @@
         <script type="text/javascript" src="../libs/easyui/jquery.min.js"></script>
         <script type="text/javascript" src="../libs/easyui/jquery.easyui.min.js"></script>
         <script id="script-lang" src="../libs/easyui/locale/easyui-lang-es.js"></script> 
-        <script type="text/javascript" src="../libs/easyui/datagrid-detailview.js"></script>
     </head>
     <body>
+        
         <table id="dg" title="Aclaraciones" class="easyui-datagrid" style="width:100%;height:450px"
                url="../php/getAllClarifications.php"
                toolbar="#toolbar" pagination="true"
@@ -32,9 +32,7 @@
         </table>
         <div id="toolbar">
             <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">Nueva Aclaracion</a>
-            <!-- por estandar de la paliccion no se puede editar
             <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">Editar</a>
-            -->
         </div>
 
         <div id="dlg" class="easyui-dialog" style="width:400px;height:380px;padding:10px 20px"
@@ -44,7 +42,7 @@
                 <div class="fitem">
                     <div class="row">   
                         <label>Requerimiento</label>
-                        <input id="cc" class="easyui-combobox" name="idRequerimiento" style="width:100%" data-options="
+                        <input id="cc" class="easyui-combobox" name="nRequerimientoAclara" style="width:100%" data-options="
                                 valueField:'IdRequerimiento',
                                 textField:'Requerimiento',
                                 required: 'true',
@@ -73,32 +71,6 @@
             <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancelar</a>
         </div>
         <script type="text/javascript">
-            $('#dg').datagrid({
-                view: detailview,
-                detailFormatter:function(index,row){
-                return '<div class="ddv" style="padding:5px 0"></div>';
-             },
-            onExpandRow: function(index,row){
-            var ddv = $(this).datagrid('getRowDetail',index).find('div.ddv');
-            ddv.datagrid({
-                width:200,
-                height:120,
-                title:"Requerimiento",              
-                //border:false,
-                cache:false,
-                url:'../php/getRequirementsExcel.php?requirement='+row.IdRequerimiento,
-                columns:[[
-                {field:'Ticket',title:'Ticket'},
-                {field:'Requerimiento',title:'Requerimiento',width:100,resizable:'true'},
-                ]],
-                onLoad:function(){
-                    $('#dg').datagrid('fixDetailRowHeight',index);
-                }
-            });
-                    $('#dg').datagrid('fixDetailRowHeight',index);
-              }
-            });
-
             var url;
             function newUser() {
                 $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nuevo');
