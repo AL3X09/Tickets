@@ -6,6 +6,10 @@ APLICATIVO REQUERIMIENTOS
 Esta aplicación permite mantener los historicos de requerimientos.
 ### Base de datos 
 requerimientos
+### TODO
+-master de menu
+-pendiente por hablar la estructura para generar el ticket
+- 
 
 Estructura
 --------------------
