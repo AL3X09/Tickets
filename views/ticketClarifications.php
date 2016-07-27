@@ -14,7 +14,7 @@
         <script type="text/javascript" src="../libs/easyui/datagrid-detailview.js"></script>
     </head>
     <body>
-        <table id="dg" title="Aclaraciones" class="easyui-datagrid" style="width:100%;height:450px"
+        <table id="dg" title="Aclaraciones" class="easyui-datagrid" style="width:100%;height:550px"
                url="../php/getAllClarifications.php"
                toolbar="#toolbar" pagination="true"
                rownumbers="true" fitColumns="true" singleSelect="true">
@@ -81,7 +81,7 @@
             onExpandRow: function(index,row){
             var ddv = $(this).datagrid('getRowDetail',index).find('div.ddv');
             ddv.datagrid({
-                width:200,
+                width:300,
                 height:120,
                 title:"Requerimiento",              
                 //border:false,
@@ -89,7 +89,7 @@
                 url:'../php/getRequirementsExcel.php?requirement='+row.IdRequerimiento,
                 columns:[[
                 {field:'Ticket',title:'Ticket'},
-                {field:'Requerimiento',title:'Requerimiento',width:100,resizable:'true'},
+                {field:'Requerimiento',title:'Requerimiento'},
                 ]],
                 onLoad:function(){
                     $('#dg').datagrid('fixDetailRowHeight',index);

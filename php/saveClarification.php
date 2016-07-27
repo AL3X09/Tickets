@@ -9,7 +9,7 @@ $idUser = intval($_SESSION["id"]);
 $ipUser = htmlspecialchars($classFunction->getRealIp());
 $clarification = htmlspecialchars($_REQUEST["Aclaracion"]);
 //$idRequirement = htmlspecialchars($_REQUEST["id"]);
-$idRequirement = (isset($_REQUEST["id"])) ? htmlspecialchars($_REQUEST["id"]) : htmlspecialchars($_REQUEST["nRequerimientoAclara"]) ;
+$idRequirement = (isset($_REQUEST["id"])) ? htmlspecialchars($_REQUEST["id"]) : htmlspecialchars($_REQUEST["idRequerimiento"]) ;
 
 $curl = curl_init();
 

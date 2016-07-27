@@ -1,4 +1,7 @@
 <?php
+/*se inutiliza el archivo ya que por relacion y estandar no se puede 
+/*modificar una aclaracion
+*/
 require './functions.php';
 ini_set("display_errors", "on");
 session_start();
@@ -8,7 +11,7 @@ $idUser = intval($_SESSION["id"]);
 $ipUser = htmlspecialchars($classFunction->getRealIp());
 
 $IdAclaraciones=htmlspecialchars($_REQUEST['id']);
-$IdRequerimiento=htmlspecialchars($_REQUEST['nRequerimiento']);
+$IdRequerimiento=htmlspecialchars($_REQUEST['idRequerimiento']);
 $Aclaracion=htmlspecialchars($_REQUEST['Aclaracion']);
 //armo varible a actualizar
 $actualizar="{
