@@ -35,11 +35,7 @@
                     <th field="Email" width="50">Correo</th>
                     <th field="Celular" width="50">Celular</th>
                     <th field="DirIp" width="50">Direccion IP</th>
-<<<<<<< HEAD
-                    <th field="Fotografia" width="14" formatter="formatPrice" >Foto</th>
-=======
                     <<th field="Fotografia" width="14" formatter="formatPrice" >Foto</th>
->>>>>>> refs/remotes/origin/master
                     <!--se quita no se se permite mostrar en vista
                     <th field="FechaCambio" width="50">Fecha de cambio</th>
                     <th field="FechaUltimoIngreso" width="50">Fecha Ultimo Ingreso</th>
@@ -56,13 +52,8 @@
         <div id="dlg" class="easyui-dialog" style="width:1000px;height:450px;padding:10px 20px"
              closed="true" buttons="#dlg-buttons">
             <div class="ftitle">Informaci&oacute;n de usuario</div>
-<<<<<<< HEAD
-            <form id="fm" method="post" enctype="multipart/form-data" novalidate>        
-               <div class="row">
-=======
             <form id="fm" method="post" enctype="multipart/form-data" novalidate>   
            <div class="row">
->>>>>>> refs/remotes/origin/master
                     <div class="col-md-3">
                     <lable>Nombre</lable>
                     <input class="easyui-textbox" type="text" name="Nombre" style="width:100%;height:30px;"  data-options="required:true" ></input>
@@ -98,11 +89,7 @@
                                     valueField:'IdCiudad',
                                     textField:'Nombre'">                                
                             </select>
-<<<<<<< HEAD
-                        </div>
-=======
                     </div>
->>>>>>> refs/remotes/origin/master
                     <div class="col-md-3">
                         <label>Rol</label>
                             <select class="easyui-combobox" name="IdRol" style="width:100%;height:30px;" data-options="
@@ -111,11 +98,7 @@
                                     valueField:'IdRol',
                                     textField:'Nombre'">                                
                             </select>
-<<<<<<< HEAD
-                       </div>
-=======
                          </div>
->>>>>>> refs/remotes/origin/master
                    <div class="col-md-3">
                         <label>Especialidad</label>
                             <select class="easyui-combobox" name="IdEspecialidad" style="width:100%;height:30px;" data-options="
@@ -125,11 +108,7 @@
                                     textField:'Nombre',
                                     required:true">
                             </select>
-<<<<<<< HEAD
-                        </div>
-=======
                                 </div>
->>>>>>> refs/remotes/origin/master
                </div>
               <div class="row">
                 <div class="col-md-3">
@@ -138,11 +117,7 @@
                                 <option value="1">Activo</option>
                                 <option value="0">Inactivo</option>
                             </select>
-<<<<<<< HEAD
-                       </div>
-=======
                     </div>
->>>>>>> refs/remotes/origin/master
                    <div class="col-md-3">
                         <label>Correo</label>
                         <input class="easyui-textbox" type="text" name="Email" style="width:100%;height:30px;" data-options="required:true"></input>
@@ -159,11 +134,7 @@
                        <label>Foto</label>
                        <input class="f1 easyui-filebox"  name="foto" id="foto" data-options="prompt:'Escojer una foto...'" style="width:100%;height:30px;">
                     </div>
-<<<<<<< HEAD
-              </div>
-=======
               </div>           
->>>>>>> refs/remotes/origin/master
             </form>
         </div>
         <div id="dlg-buttons">
