@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -143,17 +143,17 @@
                                     valueField:'IdUsuario',
                                     textField:'Nombre'">
                             </select>-->
-                            <select class="easyui-combogrid" name="IdResponsable" style="width:100%;height:32px" data-options="
+                            <select class="easyui-combogrid" name="IdResponsable" id="IdResponsable" style="width:100%;height:32px" data-options="
                                     panelWidth: 500,
                                     idField: 'IdUsuario',
                                     textField: 'Nombre',
                                     url: '../php/getUser.php',
                                     method: 'get',
-                                    columns: [[
-                                    {field:'IdUsuario',title:'#',width:80},
-                                    {field:'Nombre',title:'Nombre',width:120},
-                                    {field:'Email',title:'Correo',width:120}
-                                    ]],
+                                    //columns: [[
+                                    //{field:'IdUsuario',title:'#',width:80},
+                                    //{field:'Nombre',title:'Nombre',width:120},
+                                    //{field:'Email',title:'Correo',width:120}
+                                    //]],
                                     fitColumns: true
                                     ">
                             </select>
@@ -354,6 +354,22 @@
                         $(this).pagination('loaded');
                     }
 
+                });
+
+
+
+                $.ajax({
+                    url: '../php/getStatusRequirement.php',
+                    dataType: 'json',
+                    method: 'post',
+                    success: function (respuesta) {
+                        
+                        $("#IdResponsable").combogrid({
+                            columns: respuesta
+                        });
+                    },error:function(error){
+                        console.log(error);
+                    }
                 });
             });
 
