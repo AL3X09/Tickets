@@ -12,6 +12,7 @@ $values = "{". $classFunctions->concatComma($classFunctions->validateRequestPara
         $classFunctions->concatComma($classFunctions->validateRequestParameter("Nombre", "name")) .
         $classFunctions->concatComma($classFunctions->validateRequestParameter("IdAplicativo", "app")) . "\r\n  \"Usuario\": $idUser,\r\n  \"DirIp\": \"$ipUser\"\r\n}";
 
+//echo $values;
 $curl = curl_init();
 
 curl_setopt_array($curl, array(

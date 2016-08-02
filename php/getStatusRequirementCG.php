@@ -1,6 +1,7 @@
 <?php
 $config = parse_ini_file('../config/config.ini');
 $curl = curl_init();
+
 curl_setopt_array($curl, array(
     CURLOPT_PORT => "8016",
     CURLOPT_URL => $config['server'] . "/api/Estados/EstadosConsultarTodo",
@@ -16,9 +17,12 @@ curl_setopt_array($curl, array(
         "postman-token: db232231-ce17-3046-08ba-29ed9b664268"
     ),
 ));
+
 $response = curl_exec($curl);
 $err = curl_error($curl);
+
 curl_close($curl);
+
 if ($err) {
     echo "cURL Error #:" . $err;
 } else {
@@ -48,8 +52,8 @@ if ($err) {
         "width" => 100,
          );               
    // var_dump($result);
-     array_unshift($result,$epecialidadUsuario);
-     array_unshift($result,$nombreUsuario);
-    
+     array_unshift($result,$epecialidadUsuario);    //agrego al inicio array especialidad
+     array_unshift($result,$nombreUsuario);         //agrego al inicio array usuario
+
     echo json_encode(array($result), true);
 }
