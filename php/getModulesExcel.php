@@ -6,12 +6,13 @@ session_start();
 $classFunctions = new functions();
 $idUser = $_SESSION["id"];
 $ipUser = $classFunctions->getRealIp();
-$config = parse_ini_file('config.ini');
+$config = parse_ini_file('../config/config.ini');
 
 $values = "{" . $classFunctions->concatComma($classFunctions->validateRequestParameter("IdModulo", "idModule")) .
         $classFunctions->concatComma($classFunctions->validateRequestParameter("Nombre", "name")) .
         $classFunctions->concatComma($classFunctions->validateRequestParameter("IdAplicativo", "app")) . "\r\n  \"Usuario\": $idUser,\r\n  \"DirIp\": \"$ipUser\"\r\n}";
 
+//echo $values;
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
