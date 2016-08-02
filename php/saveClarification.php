@@ -8,7 +8,9 @@ $classFunction = new functions(); // Clase funciones
 $idUser = intval($_SESSION["id"]);
 $ipUser = htmlspecialchars($classFunction->getRealIp());
 $clarification = htmlspecialchars($_REQUEST["Aclaracion"]);
-$idRequirement = htmlspecialchars($_REQUEST["id"]);
+//$idRequirement = htmlspecialchars($_REQUEST["id"]);
+$idRequirement = (isset($_REQUEST["id"])) ? htmlspecialchars($_REQUEST["id"]) : htmlspecialchars($_REQUEST["idRequerimiento"]) ;
+
 $curl = curl_init();
 
 curl_setopt_array($curl, array(

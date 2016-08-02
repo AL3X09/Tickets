@@ -22,10 +22,11 @@ $values = "{"
         . $classFunctions->concatComma($classFunctions->validateRequestParameter("FechaHasta", "FechaHasta"))
         . $classFunctions->concatComma($classFunctions->validateRequestParameter("IdEstado", "IdEstado"))
         . $classFunctions->concatComma($classFunctions->validateRequestParameter("IdResponsable", "IdResponsable"))
-        . $classFunctions->concatComma($classFunctions->validateRequestParameter("FechaInicioDesarrollo", "FechaInicioDesarrollo"))
+        . $classFunctions->validateRequestParameter("FechaInicioDesarrollo", "FechaInicioDesarrollo")
         . "}";
-echo $values;
-$config = parse_ini_file('config.ini');
+//echo $values;
+session_start();
+$config = parse_ini_file('../config/config.ini');
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
@@ -50,8 +51,8 @@ $err = curl_error($curl);
 
 curl_close($curl);
 
-//if ($err) {
-//    echo "cURL Error #:" . $err;
-//} else {
-//    echo $response;
-//}
+if ($err) {
+    echo "cURL Error #:" . $err;
+} else {
+    echo $response;
+}

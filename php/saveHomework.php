@@ -1,6 +1,8 @@
 <?php
 
 require './functions.php';
+//require './login.php';
+
 session_start();
 $config = parse_ini_file('../config/config.ini');
 $classFunction = new functions(); // Clase funciones
@@ -39,6 +41,6 @@ if ($err) {
     echo "cURL Error #:" . $err;
 } else {
 //    echo $response;
-     $result = (is_numeric($response)) ? "Tarea ingresada con exito" : "Ha ocurrido un error, por favor intente nuevamente. $response";
+    $result = (is_numeric($response)) ? "Tarea ingresada con exito" : "Ha ocurrido un error, por favor intente nuevamente. $response";
     echo json_encode($result);
 }

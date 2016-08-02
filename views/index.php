@@ -24,7 +24,9 @@ $sql = "select LineaTiempo.*,TipoLinea.Icono,TipoLinea.Color,Usuarios.Nombre as 
 $sql.= " inner join TipoLinea on (TipoLineaID = LineaTiempo.TipoID)";
 $sql.= " inner join Usuarios on (Usuarios.UsuarioID = LineaTiempo.UsuarioID)";
 $sql.= " where LineaTiempo.SiniestroID=".$SiniestroID;
-//echo $sql;
+echo"holaaaa";
+echo $sql;
+/*
 $stmt = $db_con->prepare($sql);
 $stmt->execute();
 

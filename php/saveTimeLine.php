@@ -11,16 +11,19 @@ $ipUser = htmlspecialchars($classFunction->getRealIp());
 
 $idRequirement = $_REQUEST["IdRequerimiento"];
 $idTypeLineTime = $_REQUEST["IdTipoLineaTiempo"];
-$description = $_REQUEST["Descripcion"];
+//$idTypeLineTime = $_REQUEST["IdTipoLineaTiempo"];
+$description = $_REQUEST["Descripcion"] ;
+//$description = $_REQUEST["Descripcion"];
 $emailTo = "bryan_mnz@hotmail.com"; //$_REQUEST["EmailTo"];
-
+//$paramRequest = "{\r\n  \"IdRequerimiento\": 1,\r\n  \"IdTipoLineaTiempo\": 1,\r\n  \"Descripcion\": \"se asigna valores al responsable\",\r\n  \"EmailTo\": \"$emailTo\",\r\n  \"Tarea\": false,\r\n  \"IdTarea\": null,\r\n  \"UsuarioCreacion\": $idUser\r\n}";
 $paramRequest = "{\r\n  \"IdRequerimiento\": $idRequirement,\r\n  \"IdTipoLineaTiempo\": $idTypeLineTime,\r\n  \"Descripcion\": \"$description\",\r\n  \"EmailTo\": \"$emailTo\",\r\n  \"Tarea\": false,\r\n  \"IdTarea\": null,\r\n  \"UsuarioCreacion\": $idUser\r\n}";
+//echo $paramRequest;
 
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
     CURLOPT_PORT => "8016",
-    CURLOPT_URL => "http://server:8016/api/LineaTiempo/LineaTiempoInsertar",
+    CURLOPT_URL => $config['server'] . "/api/LineaTiempo/LineaTiempoInsertar",
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_ENCODING => "",
     CURLOPT_MAXREDIRS => 10,
