@@ -1,5 +1,4 @@
 <?php
-
 $config = parse_ini_file('../config/config.ini');
 $curl = curl_init();
 
@@ -32,15 +31,29 @@ if ($err) {
     $result = array();
     $row = array();
     foreach ($array as $key => $value) {
+        if ($value['IdEstado']==3 || $value['IdEstado']==1 || $value['IdEstado']==4 ) {
         $row = array(
             "field" => $value["Nombre"],
             "title" => $value["Nombre"],
             "width" => 80,
-            "IdEstado" => $value["IdEstado"],
-            "Nombre" => $value["Nombre"]
         );
         array_push($result, $row);
     }
-//    var_dump($result);
+    }
+
+    $nombreUsuario= array(              //vector para el head para capturar el monbre del usuario
+        'field' => 'nUsuario',
+        "title" => 'Nombre',
+        "width" => 100,
+         );
+    $epecialidadUsuario= array(         //vector para el head para capturar la especialidad del usuario
+        'field' => 'nEspecialidad',
+        "title" => 'Especialidad',
+        "width" => 100,
+         );               
+   // var_dump($result);
+     array_unshift($result,$epecialidadUsuario);    //agrego al inicio array especialidad
+     array_unshift($result,$nombreUsuario);         //agrego al inicio array usuario
+
     echo json_encode(array($result), true);
 }

@@ -359,7 +359,7 @@
 
 
                 $.ajax({
-                    url: '../php/getStatusRequirement.php',
+                    url: '../php/getStatusRequirementCG.php',
                     dataType: 'json',
                     method: 'post',
                     success: function (respuesta) {
