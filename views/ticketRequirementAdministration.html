@@ -240,7 +240,7 @@
         <div id="dlg-comment" class="easyui-dialog" style=" width:40%;height:250px; padding:10px 20px"
              closed="true" buttons="#comment-buttons">
             <form id="fm-comment" method="post" novalidate>
-                <div class="col-md-3 col-lg-3">
+                <div class="col-md-6 col-lg-6">
                     <label class="label-top" for="IdTipoLineaTiempo">Tipo de requerimiento</label>
                     <select class="easyui-combobox" name="IdTipoLineaTiempo" style="width:100%;height:32px" id="IdTipoRequerimiento " data-options="
                             url: '../php/getTypeTimeLine.php',
@@ -364,8 +364,8 @@
                         refrescar(pageSize, pageNumber);
                         $(this).pagination('loaded');
                     }
-
-                });                
+                  });
+                                
 
             $.ajax({
                      url: '../php/getStatusRequirementCG.php',
@@ -380,6 +380,7 @@
                          console.log(error);
                      }
                  });
+            });
 
             function doSearch() {
                 $.ajax({url: '../php/getRequirementsAdministration.php',
@@ -394,6 +395,7 @@
                     }
                 });
             }
+
             function getTotalRows() {
                 $.ajax({url: '../php/getTotalRequirementsAdmon.php',
                     data: {IdUsuarioResponsable: $("#IdUsuarioResponsable option:selected").val(), IdEmpresa: $("#buscarIdEmpresa option:selected").val(), IdPrioridad: $("#buscarIdAplicativo option:selected").val()},
@@ -409,6 +411,7 @@
                     }
                 });
             }
+
             function refrescar(pageSize, pageNumber) {
                 $.ajax({url: '../php/getRequirementsAdministration.php',
                     data: {page: pageNumber, rows: pageSize, IdUsuarioResponsable: $("#IdUsuarioResponsable option:selected").val(), IdEmpresa: $("#buscarIdEmpresa option:selected").val(), IdPrioridad: $("#buscarIdAplicativo option:selected").val()},
@@ -421,6 +424,7 @@
                     }
                 });
             }
+
             function getTotalTable() {
                 var total;
                 $.ajax({
@@ -437,6 +441,7 @@
                     }
                 });
             }
+
             $(function () {
                 $('#Autorizado').switchbutton({
                     onText: "SI",
@@ -447,6 +452,7 @@
                     offText: "NO"
                 });
             });
+
             function getModuleByApp() {
                 $("#IdModulo").children("option").remove();
                 $.ajax({
@@ -464,11 +470,13 @@
                     }
                 });
             }
+
             function newUser() {
                 $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nuevo Requerimiento');
                 $('#fm').form('clear');
                 url = '../php/saveRequirementClient.php';
             }
+
             function editUser() {
                 var row = $('#tt').datagrid('getSelected');
                 getModuleByApp();
@@ -479,6 +487,7 @@
                     url = '../php/updateRequirement.php?id=' + row.IdRequerimiento + "&ticket=" + row.Ticket;
                 }
             }
+
             function updateRequirement() {
                 var row = $('#tt').datagrid('getSelected');
                 getModuleByApp();
@@ -492,6 +501,7 @@
                 }
                 
             }
+
             function addRequerimentLT() {
                 var row = $('#tt').datagrid('getSelected');
 //                alert(row.Autorizado);
@@ -500,6 +510,7 @@
                     url = '../php/saveTimeLine.php?IdRequerimiento=' + row.IdRequerimiento;
                 }
             }
+
             function saveComment() {
                 $('#fm-comment').form('submit', {
                     url: url,
@@ -527,6 +538,7 @@
                     }
                 });
             }
+
             function saveRequirement() {
                 $('#fm-reasignar').form('submit', {
                     url: url,
@@ -555,6 +567,7 @@
                     }
                 });
             }
+
             function saveUser() {
                 $('#fm').form('submit', {
                     url: url,
@@ -584,6 +597,7 @@
                     }
                 });
             }
+
             //accion boton aclaracion
             function startAclaration() {
                 var row = $('#tt').datagrid('getSelected');
@@ -594,6 +608,7 @@
                     url = '../php/saveClarification.php?id=' + row.IdRequerimiento;
                 }
             }
+
             //metodo ajax guardar aclaracion
             function saveAclaration() {
                 $('#fm-aclaraciones').form('submit', {
@@ -630,6 +645,7 @@
                     $('#time-line').dialog('open').dialog('center').dialog('setTitle', 'Linea de tiempo requerimiento No.' + row.IdRequerimiento);
                 }
             }
+
             function generateOrder() {
                 var row = $('#tt').datagrid('getSelected');
 //                alert(row.Autorizado);
@@ -639,6 +655,7 @@
 //                    window.open("php/GeneratePDF.php?IdRequerimiento=" + row.IdRequerimiento);
                 }
             }
+
             function addComment() {
                 var row = $('#tt').datagrid('getSelected');
 //                alert(row.Autorizado);
@@ -648,6 +665,7 @@
                     url = '../php/saveTimeLine.php?IdRequerimiento=' + row.IdRequerimiento;
                 }
             }
+
             $(function () {
                 $('#tt').datagrid({
                     detailFormatter: function (rowIndex, rowData) {
@@ -681,6 +699,7 @@
                     }
                 });
             });
+
             function loadLocal() {
                 var rows = [];
                 for (var i = 1; i <= 8000; i++) {
