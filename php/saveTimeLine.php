@@ -11,10 +11,13 @@ $ipUser = htmlspecialchars($classFunction->getRealIp());
 
 $idRequirement = $_REQUEST["IdRequerimiento"];
 $idTypeLineTime = $_REQUEST["IdTipoLineaTiempo"];
-$description = $_REQUEST["Descripcion"];
+//$idTypeLineTime = $_REQUEST["IdTipoLineaTiempo"];
+$description = $_REQUEST["Descripcion"] ;
+//$description = $_REQUEST["Descripcion"];
 $emailTo = "bryan_mnz@hotmail.com"; //$_REQUEST["EmailTo"];
-
+//$paramRequest = "{\r\n  \"IdRequerimiento\": 1,\r\n  \"IdTipoLineaTiempo\": 1,\r\n  \"Descripcion\": \"se asigna valores al responsable\",\r\n  \"EmailTo\": \"$emailTo\",\r\n  \"Tarea\": false,\r\n  \"IdTarea\": null,\r\n  \"UsuarioCreacion\": $idUser\r\n}";
 $paramRequest = "{\r\n  \"IdRequerimiento\": $idRequirement,\r\n  \"IdTipoLineaTiempo\": $idTypeLineTime,\r\n  \"Descripcion\": \"$description\",\r\n  \"EmailTo\": \"$emailTo\",\r\n  \"Tarea\": false,\r\n  \"IdTarea\": null,\r\n  \"UsuarioCreacion\": $idUser\r\n}";
+//echo $paramRequest;
 
 $curl = curl_init();
 

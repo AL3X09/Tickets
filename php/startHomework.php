@@ -12,7 +12,7 @@ $FechaFinEstimadoTarea = htmlspecialchars($_REQUEST["fechaestimado"]);
 $FechaFinEstimadoTarea = substr($FechaFinEstimadoTarea,0,10);
 $dateStartHomework = date("Y-m-d");
 //valido si ya se a iniciado la tarea
-if ($_POST["FechaInicioTarea"]!="false") {
+if (($_POST["FechaInicioTarea"]!="") and ($_POST["FechaInicioTarea"]!="false")) {
     $result ="Error ya habia iniciado la tarea";
     echo json_encode($result);
 }else {     //valido no se haya iniciado la tarea

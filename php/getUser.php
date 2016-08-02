@@ -33,6 +33,7 @@ if ($err) {
     echo "cURL Error #:" . $err;
 } else {
     echo $response;
+    $arrayU = json_decode($response, true);
 }
 
 //$jsonDecoded = json_decode($responseUser, true);

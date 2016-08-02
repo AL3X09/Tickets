@@ -52,9 +52,12 @@ if ($err) {
             "Nombre" => $value["Nombre"],
             "IdResponsableTarea" => $value["IdResponsableTarea"],
             "nResponsableTarea" => $value["nResponsableTarea"],
-            "FechaInicioTarea" => substr($value["FechaInicioTarea"],0,10),  // con substr controlo las cadenas a mostar
+            //"FechaInicioTarea" => substr($value["FechaInicioTarea"],0,10),  // con substr controlo las cadenas a mostar
+            "FechaInicioTarea" => $value["FechaInicioTarea"] == ("") ? "" : substr($value["FechaInicioTarea"],0,10),
             "FechaFinEstimadoTarea" => substr($value["FechaFinEstimadoTarea"],0,10),
-            "FechaFinTarea" => substr($value["FechaFinTarea"],0,10),
+            //"FechaFinTarea" => substr($value["FechaFinTarea"],0,10),
+            //quitar false de la vista de campos fechas
+            "FechaFinTarea" => $value["FechaFinTarea"] == ("") ? "" : substr($value["FechaFinTarea"],0,10),
         );
         array_push($result, $row);      //agrego valores de row en result 
     }

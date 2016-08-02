@@ -18,11 +18,13 @@
     </head>
     <body>
         <div id="toolbar">            
+            <!--BOTONES-->
             <!--<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="updateRequirement()">Gestionar Requerimiento</a>-->
             <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="updateRequirement()">Asignar Requerimiento</a>
             <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-large-chart" plain="true" onclick="timeLine()">Linea de tiempo</a>
             <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-large-smartart" plain="true" onclick="generateOrder()">Orden de Compra</a>
             <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-large-smartart" plain="true" onclick="addComment()">Agregar Comentario</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-mini-add" plain="true" onclick="startAclaration()">Aclarar</a>
 
             <span>Empresa:</span>
             <select class="" name="buscarIdEmpresa" id="buscarIdEmpresa" style="width:150px;height:26px" >
@@ -39,7 +41,6 @@
             <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onclick="doSearch()">Filtrar</a>
 
         </div>
-
         <table id="tt" title="Requerimientos" style="width:100%;height:600px" class="easyui-datagrid" data-options="
                view:scrollview,rownumbers:false,singleSelect:true,
                url:'../php/getRequirementsAdministration.php',
@@ -78,85 +79,38 @@
         <div id="dlg" class="easyui-dialog" style=" width:80%;height:600px; padding:10px 20px"
              closed="true" buttons="#dlg-buttons">
             <form id="fm" method="post" novalidate>
-
+                 <!--INICIO Acordeon -->
                 <div class="easyui-accordion" style="width:100%;height:500px;">
-                    <div title="Gestion de Requerimiento" data-options="collapsed:false,collapsible:true" style="padding:5px;">
-                        <div class="col-md-3 col-lg-3">
-                            <label class="label-top" for="IdTipoRequerimiento">Tipo de requerimiento</label>
-                            <select class="easyui-combobox" name="IdTipoRequerimiento" disabled="true" style="width:100%;height:32px" id="IdTipoRequerimiento " data-options="
-                                    url: '../php/getTypeRequirement.php',
-                                    method: 'get',
-                                    valueField:'IdTipoRequerimiento',
-                                    textField:'Nombre'">
-                            </select>
-                        </div>
-                        <div class="col-md-3 col-lg-3">
-                            <label class="label-top" for="IdAplicativo">Aplicativo</label>
-
-                            <select name="IdAplicativo" id="IdAplicativo" disabled="true"  style="width:100%;height:32px" >
-                            </select>
-                        </div>
-                        <div class="col-md-3 col-lg-3">   
-                            <label class="label-top" for="IdModulo">Modulo</label>
-                            <select name="IdModulo" id="IdModulo" disabled="true" style="width:100%;height:32px">
-
-                            </select>
-                        </div>
-                        <div class="col-md-3 col-lg-3">
-                            <label class="label-top" for="IdPrioridad">Prioridad</label>
-
-                            <select class="easyui-combobox" disabled="true" name="IdPrioridad" style="width:100%;height:32px" data-options="
-                                    url: '../php/getPriority.php',
-                                    method: 'get',
-                                    valueField:'IdPrioridad',
-                                    textField:'Nombre'">
-                            </select>
-                        </div>               
-                        <div class="col-md-3 col-lg-3">
-                            <label class="label-top" for="OrdenCompra">Orden de compra</label>
-
-                            <select class="easyui-combobox" disabled="true" name="OrdenCompra" style="width:100%;height:32px">
-                                <option value="1">Si</option>
-                                <option value="0">No</option>
-                            </select>
-                        </div>  
-                        <div class="col-md-12 col-lg-12"><hr></div>
-                        <div class="col-md-11 col-lg-11">
-                            <label class="label-top" for="Requerimiento">Requerimiento</label>
-
-                            <input class="col-md-12 col-lg-12 col-sm-12 easyui-textbox" disabled="true" id="Requerimiento" name="Requerimiento" data-options="multiline:true" style="height:60px"></input>
-                        </div>
-                        <div class="col-md-11 col-lg-11">
-                            <label class="label-top" for="Objetivo">Objetivo</label>
-
-                            <input class="col-md-12 col-lg-12 col-sm-12 easyui-textbox" disabled="true" id="Objetivo"  name="Objetivo" data-options="multiline:true" style="height:60px"></input>
-                        </div>
-
-                    </div>
-                    <div title="Datos de requerimiento" data-options="selected:false" style="padding:10px;">
-                        <p>Asignacion de requerimientos</p>
+                    <!--INICIO Acordeon div asigna responsable del requerimiento -->
+                    <div title="Datos de requerimiento" data-options="collapsed:false,collapsible:true" style="padding:10px;">
+                        <p><strong>Asignacion de requerimientos</strong></p>
                         <div class="col-md-4 col-lg-3">
                             <label class="label-top" for="IdResponsable">Responsable</label>
-<!--                            <select class="easyui-combobox" name="IdResponsable" style="width:100%;height:32px" data-options="
+                            <!-- <select class="easyui-combobox" name="IdResponsable" style="width:100%;height:32px" data-options="
                                     url: 'php/getUser.php',
                                     method: 'get',
                                     valueField:'IdUsuario',
                                     textField:'Nombre'">
                             </select>-->
-                            <select class="easyui-combogrid" name="IdResponsable" style="width:100%;height:32px" data-options="
-                                    panelWidth: 500,
+                            <select class="easyui-combogrid" name="IdResponsable" id="IdResponsable" style="width:100%;height:32px" data-options="
+                                    panelWidth: 600,
+                                    panelHeight: 300,
+                                    url: '../php/getCountRequirements.php',
+                                    method: 'post',
                                     idField: 'IdUsuario',
-                                    textField: 'Nombre',
-                                    url: '../php/getUser.php',
-                                    method: 'get',
-                                    columns: [[
-                                    {field:'IdUsuario',title:'#',width:80},
-                                    {field:'Nombre',title:'Nombre',width:120},
-                                    {field:'Email',title:'Correo',width:120}
-                                    ]],
-                                    fitColumns: true
+                                    textField: 'nUsuario',
+                                    valueField: 'nUsuario',
+                                    onSelect: function(){
+                                        var g = $('#IdResponsable').combogrid('grid');	// get datagrid object
+                                        var r = g.datagrid('getSelected');	// get the selected row                                    
+                                        var nomu = r.nUsuario;
+                                        $('#tb').textbox({
+                                            value: r.nUsuario,                                            
+                                        })
+                                    }   
                                     ">
                             </select>
+                           
                         </div>
                         <div class="col-md-3 col-lg-3">
                             <label class="label-top" for="FechaEstSIES">Fecha estimado SIES</label>
@@ -210,7 +164,7 @@
 
                             <label class="label-top" for="FechaProduccion">Fecha produccion</label>                              
 
-<!--                            <input name="FechaProduccion" class="easyui-datetimebox" style="width:100%;height:32px">-->
+                            <!--<input name="FechaProduccion" class="easyui-datetimebox" style="width:100%;height:32px">-->
                             <div class='input-group datetime' id='FechaProduccion'>
                                 <input type='text' class="form-control" name="FechaProduccion" style="width:100%;height:32px" />
                                 <span class="input-group-addon">
@@ -232,6 +186,7 @@
                         </div>                
                         <div class="col-md-4 col-lg-3">
                             <label class="label-top" for="IdEstado">Estado</label>
+                            
                             <select class="easyui-combobox" name="IdEstado" style="width:100%;height:32px" data-options="
                                     url: '../php/getStatusRequirement.php',
                                     method: 'get',
@@ -239,11 +194,50 @@
                                     textField:'Nombre'">
                             </select>
                         </div>
-                    </div>                    
+                    </div>
+                    <!--FIN Acordeon div asigna responsable del requerimiento -->
+
+                    <!--INICIO Acordeon div gestion del requerimiento -->
+                    <div title="Gestion de Requerimiento" data-options="selected:false"" style="padding:5px;">
+                        <div class="col-md-2 col-lg-2">
+                            <label class="label-top" for="IdTipoRequerimiento">Tipo de requerimiento</label>
+                            <input class="input-none" type="text" name="nTipoRequerimiento" data-options="" disabled="true" />                            
+                        </div>
+                        <div class="col-md-2 col-lg-2">
+                            <label class="label-top" for="IdAplicativo">Aplicativo</label>
+                            <input class="input-none" type="text" name="nAplicativo" data-options="" disabled="true" />                            
+                        </div>
+                        <div class="col-md-2">   
+                            <label class="label-top" for="IdModulo">Modulo</label>
+                            <input class="input-none" type="text" name="nModulo" data-options="" disabled="true" />                            
+                        </div>
+                        
+                        <div class="col-md-2 col-lg-2">
+                            <label class="label-top" for="IdPrioridad">Prioridad</label>
+                            <input class="input-none" type="text" name="nPrioridad" data-options="" disabled="true" />                            
+                        </div>               
+                        <div class="col-md-2 col-lg-2">
+                            <label class="label-top" for="OrdenCompra">Orden de compra</label>
+                            <input class="input-none" type="text" name="valOrdenCompra" data-options="" disabled="true" />
+                        </div>  
+                        <div class="col-md-12 col-lg-12"><hr></div>
+                        <div class="col-md-11 col-lg-11">
+                            <label class="label-top" for="Requerimiento">Requerimiento</label>
+                            <textarea class="col-md-12 col-lg-12 col-sm-12 bg" disabled="true" id="Requerimiento" name="Requerimiento" data-options="multiline:true" style="height:60px"></textarea>
+                        </div>
+                        <div class="col-md-11 col-lg-11">
+                            <label class="label-top" for="Objetivo">Objetivo</label>
+                            <textarea class="col-md-12 col-lg-12 col-sm-12 bg" disabled="true" id="Objetivo"  name="Objetivo" data-options="multiline:true" style="height:60px"></textarea>
+                        </div>
+
+                    </div>
+                    <!--FIN Acordeon div gestion del requerimiento -->
+                    <input id="tb" name="respRequeriment" type="hidden" data-options="hidden:true">                    
                 </div>
+                <!--FIN Acordeon -->
             </form>
         </div>
-        <div id="dlg-comment" class="easyui-dialog" style=" width:80%;height:600px; padding:10px 20px"
+        <div id="dlg-comment" class="easyui-dialog" style=" width:40%;height:250px; padding:10px 20px"
              closed="true" buttons="#comment-buttons">
             <form id="fm-comment" method="post" novalidate>
                 <div class="col-md-3 col-lg-3">
@@ -260,6 +254,7 @@
 
                     <input class="col-md-12 col-lg-12 col-sm-12 easyui-textbox"  id="Descripcion" name="Descripcion" data-options="multiline:true" style="height:60px"></input>
                 </div>
+                
             </form>
         </div>
         <div id="comment-buttons">
@@ -270,7 +265,22 @@
             <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveUser()" style="width:90px">Guardar</a>
             <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancelar</a>
         </div>
+        <!--DIALOG ACLARACIONES -->
+        <div id="dlg-aclaraciones" class="easyui-dialog" style=" width:900px; padding:10px 20px"
+             closed="true" buttons="#dlg-buttons-clarification">
+            <form id="fm-aclaraciones" method="post" novalidate>            
+                <div class="col-md-12 col-lg-12">
+                    <label class="label-top" for="Requerimiento">Aclaraci&oacute;n</label>
 
+                    <input class="col-md-12 col-lg-12 col-sm-12 easyui-textbox" name="Aclaracion" data-options="multiline:true" style="width: 100%;height:60px"></input>
+                </div>            
+            </form>
+        </div>
+        <div id="dlg-buttons-clarification">
+            <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveAclaration()" style="width:90px">Guardar</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg-aclaraciones').dialog('close')" style="width:90px">Cancelar</a>
+        </div>
+        <!--FIN DIALOG ACLARACIONES -->
         <div id="time-line" class="easyui-dialog" style="width:900px;height:700px;padding:1px 1px; overflow:hidden;"
              closed="true" >
             <iframe style="width:100%; height:700px;border: 0px;" name="frame-time-line" id="frame-time-line"></iframe>
@@ -280,7 +290,7 @@
             <iframe style="width:100%; height:700px;border: 0px;" name="frame-purchase-order" id="frame-purchase-order"></iframe>
         </div>
 
-        <script type="text/javascript">
+        <script type="text/javascript">       
             function purchaseOrder(val, row) {
                 if (val == "NO") {
                     return '<span style="color:red;"><img style="width:5;height:5;" src="../img/Alerta.png" alt=""/>(' + val + ')</span>';
@@ -302,6 +312,7 @@
 
                     }
                 });
+                
                 $.ajax({
                     url: '../php/getApp.php',
                     type: 'POST',
@@ -356,6 +367,20 @@
 
                 });
             });
+
+            $.ajax({
+                     url: '../php/getStatusRequirementCG.php',
+                     dataType: 'json',
+                     method: 'post',
+                     success: function (respuesta) {
+                         //alert(respuesta);
+                         $("#IdResponsable").combogrid({
+                             columns: respuesta
+                         });
+                     },error:function(error){
+                         console.log(error);
+                     }
+                 });
 
             function doSearch() {
                 $.ajax({url: '../php/getRequirementsAdministration.php',
@@ -458,11 +483,22 @@
             function updateRequirement() {
                 var row = $('#tt').datagrid('getSelected');
                 getModuleByApp();
+                //addRequerimentLT();
                 if (row) {
 //                    $('#FechaEstSIES').datetimepicker().children('input').val(row.FechaEstSIES);
+                    
                     $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Reasignar Requerimiento');
                     $('#fm').form('load', row);
                     url = '../php/updateRequirementAdmon.php?id=' + row.IdRequerimiento + "&ticket=" + row.Ticket;
+                }
+                
+            }
+            function addRequerimentLT() {
+                var row = $('#tt').datagrid('getSelected');
+//                alert(row.Autorizado);
+                if (row) {
+                    $('#fm').form('load', row);
+                    url = '../php/saveTimeLine.php?IdRequerimiento=' + row.IdRequerimiento;
                 }
             }
             function saveComment() {
@@ -549,6 +585,43 @@
                     }
                 });
             }
+            //accion boton aclaracion
+            function startAclaration() {
+                var row = $('#tt').datagrid('getSelected');
+                getModuleByApp();
+                if (row) {
+                    $('#dlg-aclaraciones').dialog('open').dialog('center').dialog('setTitle', 'Aclarar');
+                    $('#fm-aclaraciones').form('load', row);
+                    url = '../php/saveClarification.php?id=' + row.IdRequerimiento;
+                }
+            }
+            //metodo ajax guardar aclaracion
+            function saveAclaration() {
+                $('#fm-aclaraciones').form('submit', {
+                    url: url,
+                    onSubmit: function () {
+                        return $(this).form('validate');
+                    },
+                    success: function (result) {
+                        var result = eval('(' + result + ')');
+                        if (result.errorMsg) {
+                            $.messager.show({
+                                title: 'Error',
+                                msg: result.errorMsg
+                            });
+                        } else {
+                            $.messager.show({
+                                title: 'Notificacion',
+                                msg: result,
+                                showType: 'show'
+                            });
+                            $('#dlg-aclaraciones').dialog('close');        // close the dialog
+                            $('#tt').datagrid('reload');    // reload the user data
+                            getTotalTable();
+                        }
+                    }
+                });
+            } 
 
             function timeLine() {
                 var row = $('#tt').datagrid('getSelected');
@@ -693,6 +766,16 @@
             .fitem input{
                 width:160px;
             }
+            .input-none{
+                background-color: white;
+                border: none;
+                text-align: justify;
+            }
+            .bg{
+                background-color: white;
+                border: none; 
+                resize: none;              
+            }              
         </style>
     </body>
 </html>

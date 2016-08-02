@@ -12,7 +12,7 @@ $FechaFinEstimadoTarea = htmlspecialchars($_REQUEST["fechaestimado"]);
 $FechaFinEstimadoTarea = substr($FechaFinEstimadoTarea,0,10);
 $FechaInicioTarea=htmlspecialchars($_REQUEST["FechaInicioTarea"]);
 //valida que ya se haya iniciado la tarea antes de finalizarla
-if (($FechaInicioTarea !== "false")) {
+if (($FechaInicioTarea !== "false") and ($FechaInicioTarea !== "") ) {
    
 $FechaInicioTarea = substr($FechaInicioTarea,0,10);
 $dateEndtHomework = date("Y-m-d");
