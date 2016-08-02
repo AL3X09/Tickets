@@ -2,43 +2,44 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>MODULO FQS</title>
-        <link rel="stylesheet" type="text/css" href="../libs/easyui/themes/material/easyui.css">
+        <title>Tipos de linea de Tiempo</title>
+        <link rel="stylesheet" type="text/css" href="../libs/easyui/themes/bootstrap/easyui.css">
         <link rel="stylesheet" type="text/css" href="../libs/easyui/themes/icon.css">
         <link rel="stylesheet" type="text/css" href="../libs/easyui/themes/color.css">
         <link rel="stylesheet" type="text/css" href="../libs/easyui/demo/demo.css">
-        <script type="text/javascript" src="../libs/easyui/jquery.min.js"></script>
-        <script type="text/javascript" src="../libs/easyui/jquery.easyui.min.js"></script>
-        <script id="script-lang" src="../libs/easyui/locale/easyui-lang-es.js"></script> 
+        <link href="../libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <script src="../libs/easyui/jquery.min.js" type="text/javascript"></script>
+        <script src="../libs/easyui/jquery.easyui.min.js" type="text/javascript"></script>
+        <script type="text/javascript" src="http://www.jeasyui.com/easyui/datagrid-scrollview.js"></script> <!-- Agregar ScrollView-->
+        <script id="script-lang" src="../libs/easyui/locale/easyui-lang-es.js"></script>
     </head>
     <body>
-        
-        <table id="dg" title="Especialidades" class="easyui-datagrid" style="width:500px;height:350px"
-               url="../php/getAllEspecialitys.php"
+        <h2>Tipos de linea de tiempo</h2>
+
+        <table id="dg" title="Tipo de linea de tiempo" class="easyui-datagrid" style="width:700px;height:350px"
+               url="../php/getTypeTimeLine.php"
                toolbar="#toolbar" pagination="true"
                rownumbers="true" fitColumns="true" singleSelect="true">
             <thead>
                 <tr>
-                    <th field="Requerimiento" width="50">Requerimiento</th>
-                    <th field="Respuesta" width="50">Respuesta</th>                    
+                    <th field="IdTipoLineaTiempo" width="50">#</th>
+                    <th field="Nombre" width="50">Nombre</th>                
                 </tr>
             </thead>
         </table>
         <div id="toolbar">
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">Nueva Especialidad</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">Nuevo</a>
             <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">Editar</a>
         </div>
 
         <div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
              closed="true" buttons="#dlg-buttons">
-            <div class="ftitle">Gestion de Especialidades</div>
+            <div class="ftitle">Tipo</div>
             <form id="fm" method="post" novalidate>
                 <div class="fitem">
-                    <label>Requerimiento</label>
-                    <input name="Requerimiento" class="easyui-textbox" required="true">
-                    <label>Respuesta</label>
-                    <input name="Respuesta" class="easyui-textbox" required="true">
-                </div>                
+                    <label>Nombre</label>
+                    <input name="Nombre" class="easyui-textbox" required="true">
+                </div>            
             </form>
         </div>
         <div id="dlg-buttons">
@@ -48,16 +49,16 @@
         <script type="text/javascript">
             var url;
             function newUser() {
-                $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nuevo rol');
+                $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nuevo');
                 $('#fm').form('clear');
-                url = '../php/saveEspecialitys.php';
+                url = '../php/saveTypeLineTime.php';
             }
             function editUser() {
                 var row = $('#dg').datagrid('getSelected');
                 if (row) {
                     $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Editar');
                     $('#fm').form('load', row);
-                    url = '../php/updateEspeciality.php?id=' + row.IdFAQ;
+                    url = '../php/updateTypeLineTime.php?id=' + row.IdTipoLineaTiempo;
                 }
             }
             function saveUser() {
@@ -67,7 +68,7 @@
                         return $(this).form('validate');
                     },
                     success: function (result) {
-                        var result = eval('(' + result + ')');                        
+                        var result = eval('(' + result + ')');
                         if (result.errorMsg) {
                             $.messager.show({
                                 title: 'Error',
@@ -81,7 +82,7 @@
                             });
                             $('#dlg').dialog('close');        // close the dialog
                             $('#dg').datagrid('reload');    // reload the user data
-                     }                    
+                        }
                     }
                 });
             }            

@@ -17,7 +17,7 @@ $update ="{
     }";
 curl_setopt_array($curl, array(
   CURLOPT_PORT => "8016",
-  CURLOPT_URL => "http://server:8016/api/Especialidades/EspecialidadesActualizar",
+  CURLOPT_URL => $config['server'] . "/api/Especialidades/EspecialidadesActualizar",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => "",
   CURLOPT_MAXREDIRS => 10,
@@ -40,5 +40,6 @@ curl_close($curl);
 if ($err) {
   echo "cURL Error #:" . $err;
 } else {
-  echo $response;
+  $result = (is_numeric($response)) ? "Especialidad actualizada con exito" : "Ha ocurrido un error, por favor intente nuevamente. $response";
+    echo json_encode($result);
 }

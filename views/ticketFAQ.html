@@ -2,43 +2,70 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Basic CRUD Application - jQuery EasyUI CRUD Demo</title>
+        <title>MODULO FAQ</title>
         <link rel="stylesheet" type="text/css" href="../libs/easyui/themes/material/easyui.css">
         <link rel="stylesheet" type="text/css" href="../libs/easyui/themes/icon.css">
         <link rel="stylesheet" type="text/css" href="../libs/easyui/themes/color.css">
         <link rel="stylesheet" type="text/css" href="../libs/easyui/demo/demo.css">
+        <link rel="stylesheet" type="text/css" href="../libs/bootstrap/css/bootstrap.min.css">
         <script type="text/javascript" src="../libs/easyui/jquery.min.js"></script>
-        <script type="text/javascript" src="../libs/easyui/jquery.min.js"></script>
+        <script type="text/javascript" src="../libs/easyui/jquery.easyui.min.js"></script>
         <script id="script-lang" src="../libs/easyui/locale/easyui-lang-es.js"></script> 
     </head>
     <body>
-        <h2>Basic CRUD Application</h2>
-        <p>Click the buttons on datagrid toolbar to do crud actions.</p>
-
-        <table id="dg" title="Tipos tipo de linea de tiempo" class="easyui-datagrid" style="width:700px;height:250px"
-               url="../php/getTypeTimeLine.php"
+        
+        <table id="dg" title="FAQ" class="easyui-datagrid" style="width:100%;height:550px"
+               url="../php/getAllFAQ.php"
                toolbar="#toolbar" pagination="true"
                rownumbers="true" fitColumns="true" singleSelect="true">
             <thead>
                 <tr>
-                    <th field="IdTipoLineaTiempo" width="50">#</th>
-                    <th field="Nombre" width="50">Nombre</th>                
+                    <th field="Requerimiento" width="50">Pregunta</th>
+                    <th field="Respuesta" width="50">Respuesta</th>                    
+                    <th field="nAplicativo" width="50" >Aplicativo</th>                    
+                    <th field="nModulo" width="50">Modulo</th>                    
                 </tr>
             </thead>
         </table>
         <div id="toolbar">
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">Nuevo</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">Nueva Pregunta</a>
             <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">Editar</a>
         </div>
 
-        <div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
+        <div id="dlg" class="easyui-dialog" style="width:700px;height:500px;padding:10px 20px"
              closed="true" buttons="#dlg-buttons">
-            <div class="ftitle">User Information</div>
+            <div class="ftitle">Gestion de Preguntas</div>
             <form id="fm" method="post" novalidate>
-                <div class="fitem">
-                    <label>Nombre</label>
-                    <input name="Nombre" class="easyui-textbox" required="true">
-                </div>            
+            <!--agrego boostrap para el contenido -->
+            <!--combobox selecion ID aplicativo -->
+                <div class="row">
+                  <label>Aplicativo</label>
+                  <select id="ap" class="easyui-combobox" name="IdAplicativo" style="width:100%" data-options="
+                                    valueField: 'IdAplicativo',
+                                    textField: 'Nombre',
+                                    url: '../php/getApp.php',
+                                   "></select>
+                </div> 
+                <!--combobox selecion ID modulo -->
+                <div class="row">
+                  <label>Modulo</label>
+                  <select id="md" class="easyui-combobox" name="IdModulo" style="width:100%" data-options="
+                                    valueField: 'IdModulo',
+                                    textField: 'Nombre',
+                                    url: '../php/getModules.php',
+                                    "></select>
+                </div>       
+                <!--input requerimiento (pregunta) -->
+                <div class="row">
+                    <label>Pregunta</label>
+                    <input name="Requerimiento" class="easyui-textbox" required="true" style="width:100%">
+                </div>
+                <!--input respuesta -->
+                <div class="row">
+                    <label>Respuesta</label>
+                    <!--<input name="Respuesta" class="easyui-textbox" required="true">-->
+                    <textarea class="form-control" name="Respuesta" required="true"></textarea>
+                </div>
             </form>
         </div>
         <div id="dlg-buttons">
@@ -48,16 +75,16 @@
         <script type="text/javascript">
             var url;
             function newUser() {
-                $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nuevo');
+                $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nuevo Requerimiento');
                 $('#fm').form('clear');
-                url = '../php/saveTypeLineTime.php';
+                url = '../php/saveFAQ.php';
             }
             function editUser() {
                 var row = $('#dg').datagrid('getSelected');
                 if (row) {
                     $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Editar');
                     $('#fm').form('load', row);
-                    url = '../php/updateTypeLineTime.php?id=' + row.IdTipoLineaTiempo;
+                    url = '../php/updateFAQ.php?id=' + row.IdFAQ;
                 }
             }
             function saveUser() {
@@ -67,7 +94,7 @@
                         return $(this).form('validate');
                     },
                     success: function (result) {
-                        var result = eval('(' + result + ')');
+                        var result = eval('(' + result + ')');                        
                         if (result.errorMsg) {
                             $.messager.show({
                                 title: 'Error',
@@ -81,7 +108,7 @@
                             });
                             $('#dlg').dialog('close');        // close the dialog
                             $('#dg').datagrid('reload');    // reload the user data
-                        }
+                     }                    
                     }
                 });
             }            

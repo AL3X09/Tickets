@@ -1,6 +1,7 @@
 <?php
 
 require './functions.php';
+
 session_start();
 $config = parse_ini_file('../config/config.ini');
 $classFunction = new functions(); // Clase funciones
@@ -32,6 +33,7 @@ if ($err) {
     echo "cURL Error #:" . $err;
 } else {
     echo $response;
+    $arrayU = json_decode($response, true);
 }
 
 //$jsonDecoded = json_decode($responseUser, true);

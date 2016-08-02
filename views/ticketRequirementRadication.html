@@ -63,7 +63,6 @@
 
                 <div class="col-md-3 col-lg-3">
                     <label class="label-top" for="IdTipoRequerimiento">Tipo de requerimiento</label>
-
                     <select class="easyui-combobox" name="IdTipoRequerimiento" style="width:100%;height:32px" id="IdTipoRequerimiento " data-options="
                             url: '../php/getTypeRequirement.php',
                             method: 'get',
@@ -73,15 +72,24 @@
                 </div>
                 <div class="col-md-3 col-lg-3">
                     <label class="label-top" for="IdAplicativo">Aplicativo</label>
+                    <!--<select name="IdAplicativo" id="IdAplicativo"  style="width:100%;height:32px" >
+                    </select>-->
 
-                    <select name="IdAplicativo" id="IdAplicativo"  style="width:100%;height:32px" >
-                    </select>
+                    <input id="cc1" class="easyui-combobox" name="IdAplicativo"  style="width:100%;height:32px" data-options="
+                            valueField: 'IdAplicativo',
+                            textField: 'Nombre',
+                            url: '../php/getApp.php',
+                            onSelect: function(rec){
+                                $('#cc2').combobox('clear');
+                                var url = '../php/getModulesExcel.php?app='+rec.IdAplicativo;
+                                $('#cc2').combobox('reload', url);
+                            }">
                 </div>
                 <div class="col-md-3 col-lg-3">   
                     <label class="label-top" for="IdModulo">Modulo</label>
-                    <select name="IdModulo" id="IdModulo" style="width:100%;height:32px">
-
-                    </select>
+                    <!--<select name="IdModulo" id="IdModulo" style="width:100%;height:32px">
+                    </select>-->
+                    <input id="cc2" class="easyui-combobox" name="IdModulo"  style="width:100%;height:32px" data-options="valueField:'IdModulo',textField:'Nombre',required:true">
                 </div>
                 <div class="col-md-3 col-lg-3">
                     <label class="label-top" for="IdPrioridad">Prioridad</label>
@@ -153,6 +161,7 @@
         <div id="comment-buttons">
             <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveComment()" style="width:90px">Guardar</a>
             <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg-comment').dialog('close')" style="width:90px">Cancelar</a>
+
         </div>
         <div id="time-line" class="easyui-dialog" style="width:900px;height:700px;padding:1px 1px; overflow:hidden;"
              closed="true" >
@@ -226,7 +235,14 @@
 
             }
 
-            function getModuleByApp() {
+            function getModuleByApp(req) {
+                //capturo el valor enviado y re invoco la funcion para cargar el modulo
+                var IdAplicativo=req;
+                var url = '../php/getModulesExcel.php?app='+IdAplicativo;
+                $('#cc2').combobox('reload', url);
+
+                /* 
+                //se inavilita debido al cambio como se estan solicitando los datos
                 $("#IdModulo").children("option").remove();
                 $.ajax({
                     url: '../php/getModulesExcel.php?app=' + $("#IdAplicativo option:selected").val(),
@@ -243,7 +259,9 @@
                         console.log(error);
                     }
                 });
+                */
             }
+
             function newUser() {
                 newRequirement();
                 $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nuevo Requerimiento');
@@ -252,12 +270,14 @@
             }
             function editUser() {
                 var row = $('#tt').datagrid('getSelected');
-                getModuleByApp();
+                //getModuleByApp();
                 editRequirement();
                 if (row) {
                     $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Editar Requerimiento');
                     $('#fm').form('load', row);
                     url = '../php/updateRequirementRadication.php?id=' + row.IdRequerimiento + "&ticket=" + row.Ticket;
+                    var req = row.IdAplicativo
+                    getModuleByApp(req);
                 }
             }
             function newRequirement() {
@@ -269,6 +289,7 @@
                 $("#IdPrioridad").textbox({disabled: true});
                 $("#Requerimiento").textbox({disabled: true});
                 $("#Objetivo").textbox({disabled: true});
+                
             }
             function startAclaration() {
                 var row = $('#tt').datagrid('getSelected');
@@ -306,6 +327,7 @@
                     }
                 });
             }
+
             function saveUser() {
                 $('#fm').form('submit', {
                     url: url,
@@ -335,10 +357,10 @@
                     }
                 });
             }
+
             function timeLine() {
                 var row = $('#tt').datagrid('getSelected');
                 if (row) {
-                    ///alert("index.html?id=" + row.IdRequerimiento);
                     $('#frame-time-line').attr("src", "index.html?id=" + row.IdRequerimiento);
                     $('#time-line').dialog('open').dialog('center').dialog('setTitle', 'Linea de tiempo requerimiento No.' + row.IdRequerimiento);
 

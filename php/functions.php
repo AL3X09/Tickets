@@ -6,6 +6,7 @@ class functions {
     private $method;
 
     public function __construct() {
+        /* se desactiva por no ser resquerido en el aplicativo
         $this->method = $_POST["method"];
         switch ($this->method) {
             case 1:
@@ -16,7 +17,7 @@ class functions {
                 break;
             default:
                 break;
-        }
+        }*/
     }
 
     private function session() {
