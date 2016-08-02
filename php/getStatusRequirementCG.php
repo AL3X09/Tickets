@@ -32,13 +32,13 @@ if ($err) {
     $row = array();
     foreach ($array as $key => $value) {
         if ($value['IdEstado']==3 || $value['IdEstado']==1 || $value['IdEstado']==4 ) {
-            $row = array(
-                "field" => $value["Nombre"],
-                "title" => $value["Nombre"],
-                "width" => 80,
-            );
-             array_push($result, $row);
-        }
+        $row = array(
+            "field" => $value["Nombre"],
+            "title" => $value["Nombre"],
+            "width" => 80,
+        );
+        array_push($result, $row);
+    }
     }
 
     $nombreUsuario= array(              //vector para el head para capturar el monbre del usuario
