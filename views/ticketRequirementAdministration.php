@@ -356,8 +356,6 @@
 
                 });
 
-
-
                 $.ajax({
                     url: '../php/getStatusRequirementCG.php',
                     dataType: 'json',
