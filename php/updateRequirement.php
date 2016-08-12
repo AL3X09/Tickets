@@ -31,7 +31,7 @@ $finishDate = date_format(new DateTime($_REQUEST["FechaTerminado"]), 'Y-m-d H:i:
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-    CURLOPT_PORT => "8016",
+    CURLOPT_PORT => $config['server'],
     CURLOPT_URL => $config['server'] . "/api/Requerimiento/RequerimientoActualizar",
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_ENCODING => "",
@@ -75,7 +75,7 @@ if ($err) {
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_PORT => "8016",
+            CURLOPT_PORT => $config['server'],
             CURLOPT_URL => $config["server"] . "/api/LineaTiempo/LineaTiempoInsertar",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",

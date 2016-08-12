@@ -12,7 +12,7 @@ $curl = curl_init();
 $nameStatus = htmlspecialchars($_REQUEST["Nombre"]);
 
 curl_setopt_array($curl, array(
-    CURLOPT_PORT => "8016",
+    CURLOPT_PORT => $config['server'],
     CURLOPT_URL => $config['server'] . "/api/Estados/EstadosInsertar",
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_ENCODING => "",

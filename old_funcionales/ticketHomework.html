@@ -20,8 +20,8 @@
                rownumbers="true" fitColumns="true" singleSelect="true">
             <thead>
                 <tr>
-                    <th field="IdTarea" width="50">#</th>
-                    <th field="Nombre" width="50">Nombre</th>
+                    <th field="IdTarea" width="10">#</th>
+                    <th field="Nombre" width="80">Nombre</th>
                     <th field="nResponsableTarea" width="50">Responsable Tarea</th>
                     <th field="FechaFinEstimadoTarea" width="50">Fecha fin estimado de tarea</th>
                     <th field="FechaInicioTarea" width="50">Fecha Inicio de tarea</th>
@@ -49,13 +49,22 @@
                             url: '../php/getUser.php',
                             method: 'get',
                             valueField:'IdUsuario',
-                            textField:'Nombre'">
+                            textField:'Nombre',
+                                onSelect: function(rec){
+                                var url = rec.Email;
+                                $('#emailResponsable').textbox({
+                                            value:url,                                            
+                                })
+                            }">
                     </select>
                 </div>
                 <div class="col-md-4 col-lg-4">
                     <label class="label-top" for="FechaFinEstimadoTarea">Fecha estimado fin</label>
                     <input id="dd" name="FechaFinEstimadoTarea" type="text" style="width:100%;height:32px"class="easyui-datebox" required="required">
-                </div>                
+                </div>
+                <div style="display: none;">
+                    <input id="emailResponsable" name="emailResponsable" type="hidden" data-options="hidden:true">
+               </div>                
             </form>
         </div>
         <div id="dlg-buttons">
@@ -124,7 +133,8 @@
                     $.messager.confirm('Confirm', 'Desea iniciar esta tarea?', function (r) {
                         if (r) {
                             $('#fm').form('load', row);
-                            $.post('../php/startHomework.php', {id: row.id}, function (result) {
+                            //$.post('../php/startHomework.php', {id: row.id}, function (result) {
+                            $.post('../php/startHomework.php', {id: row.IdTarea,nombre: row.Nombre,fechaestimado: row.FechaFinEstimadoTarea,idresponsable: row.IdResponsableTarea,FechaInicioTarea: row.FechaInicioTarea}, function (result) {
                                 if (result.success) {
                                     $('#dg').datagrid('reload');    // reload the user data
                                 } else {

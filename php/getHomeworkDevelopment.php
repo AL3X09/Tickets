@@ -8,7 +8,7 @@ $ipUser = $classFunctions->getRealIp();
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_PORT => "8016",
+  CURLOPT_PORT => $config['server'],
   CURLOPT_URL => $config['server'] . "/api/Tareas/TareasConsultarFiltros",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => "",
@@ -56,7 +56,7 @@ if ($err) {
             "FechaInicioTarea" => $value["FechaInicioTarea"] == ("") ? "" : substr($value["FechaInicioTarea"],0,10),
             "FechaFinEstimadoTarea" => substr($value["FechaFinEstimadoTarea"],0,10),
             //"FechaFinTarea" => substr($value["FechaFinTarea"],0,10),
-            //quitar false de la vista de campos fechas
+            //quito false de la vista de campos fechas
             "FechaFinTarea" => $value["FechaFinTarea"] == ("") ? "" : substr($value["FechaFinTarea"],0,10),
         );
         array_push($result, $row);      //agrego valores de row en result 

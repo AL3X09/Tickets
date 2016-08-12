@@ -3,7 +3,7 @@ $config = parse_ini_file('../config/config.ini');
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-    CURLOPT_PORT => "8016",
+    CURLOPT_PORT => $config['server'],
     CURLOPT_URL => $config['server'] . "/api/Estados/EstadosConsultarTodo",
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_ENCODING => "",
@@ -35,7 +35,7 @@ if ($err) {
         $row = array(
             "field" => $value["Nombre"],
             "title" => $value["Nombre"],
-            "width" => 80,
+            
         );
         array_push($result, $row);
     }
@@ -44,12 +44,12 @@ if ($err) {
     $nombreUsuario= array(              //vector para el head para capturar el monbre del usuario
         'field' => 'nUsuario',
         "title" => 'Nombre',
-        "width" => 100,
+       
          );
     $epecialidadUsuario= array(         //vector para el head para capturar la especialidad del usuario
         'field' => 'nEspecialidad',
         "title" => 'Especialidad',
-        "width" => 100,
+       
          );               
    // var_dump($result);
      array_unshift($result,$epecialidadUsuario);    //agrego al inicio array especialidad

@@ -20,8 +20,8 @@
                rownumbers="true" fitColumns="true" singleSelect="true">
             <thead>
                 <tr>
-                    <th field="IdTarea" width="50">#</th>
-                    <th field="Nombre" width="50">Nombre</th>
+                    <th field="IdTarea" width="10">#</th>
+                    <th field="Nombre" width="80">Nombre</th>
                     <th field="nResponsableTarea" width="50">Responsable Tarea</th>
                     <th field="FechaFinEstimadoTarea" width="50">Fecha fin estimado de tarea</th>
                     <th field="FechaInicioTarea" width="50">Fecha Inicio de tarea</th>                    
@@ -147,7 +147,7 @@
                                 } else {
                                     $.messager.show({       // show error message
                                         title: 'Error',
-                                        msg: result.errorMsg
+                                        msg: result
                                     });
                                 }
                             }, 'json');

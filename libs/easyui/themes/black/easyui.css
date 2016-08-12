@@ -678,6 +678,7 @@
 }
 .combo-panel {
   overflow: auto;
+  overflow-x: hidden;
 }
 .combo-arrow {
   background: url('images/combo_arrow.png') no-repeat center center;

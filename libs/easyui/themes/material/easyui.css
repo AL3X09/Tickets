@@ -660,6 +660,7 @@
 }
 .combo-panel {
   background-color: #ffffff;
+  overflow-x: hidden;
 }
 .combo-arrow {
   background-color: #f5f5f5;

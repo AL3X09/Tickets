@@ -11,7 +11,7 @@ $namePriority = htmlspecialchars($_REQUEST["Nombre"]);
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-    CURLOPT_PORT => "8016",
+    CURLOPT_PORT => $config['server'],
     CURLOPT_URL => $config['server'] . "/api/Prioridad/PrioridadInsertar",
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_ENCODING => "",

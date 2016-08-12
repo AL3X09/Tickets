@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Gestion Desarrollador</title>
+        <title>Gestion Desarrollador Requerimiento</title>
         <link rel="stylesheet" type="text/css" href="../libs/easyui/themes/material/easyui.css">
         <link rel="stylesheet" type="text/css" href="../libs/easyui/themes/icon.css">
         <link rel="stylesheet" type="text/css" href="../libs/easyui/themes/color.css">
@@ -19,8 +19,10 @@
         <div id="toolbar">
 
             <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">Cambiar Estado</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-mini-add" plain="true" onclick="verAcalracion()">Ver Aclaracion</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="Reassigns()">Asignar</a>
             <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-large-chart" plain="true" onclick="timeLine()">Linea de tiempo</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-large-smartart" plain="true" onclick="addComment()">Agregar Comentario</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-large-smartart" plain="true" onclick="addComment()">Actualizar Linea de tiempo</a>
         </div>
         <table id="tt" title="Requerimientos" style="width:100%;height:600px" data-options="
                view:scrollview,rownumbers:false,singleSelect:true,
@@ -56,27 +58,37 @@
                 width:40px;
             }
         </style>
-        <div id="dlg" class="easyui-dialog" style=" width:40%; height: 500px;   padding:10px 20px"
+        <!--DIALOG CAMBIAR ESTADO -->
+        <div id="dlg" class="easyui-dialog" style=" width:30%; height: 200px;   padding:10px 20px"
              closed="true" buttons="#dlg-buttons">
             <form id="fm" method="post" novalidate>  
-                <div class="col-md-6 col-lg-6">
-                    <label class="label-top" for="FechaInicioDesarrollo">Fecha de inicio desarrollo</label>
-                    <!--<input name="FechaInicioDesarrollo" class="easyui-datetimebox" style="width:100%;height:32px">-->
+                <!--se inhabilita por trazavilidad debe hacerce desde codigo
+                    <div class="col-md-6 col-lg-6">
+                    <label class="label-top" for="FechaInicioDesarrollo">Fecha de inicio desarrollo</label>                    
                     <div class='input-group datetime' id='FechaInicioDesarrollo'>
                         <input type='text' class="form-control" name="FechaInicioDesarrollo" style="width:100%;height:32px" />
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
                         </span>
                     </div>
-                </div>                    
-                <div class="col-md-6 col-lg-6">
+                </div>-->                    
+                <div class="col-md-8 col-lg-8">
                     <label class="label-top" for="IdEstado">Estado</label>
                     <select class="easyui-combobox" name="IdEstado" style="width:100%;height:32px" data-options="
                             url: '../php/getStatusRequirement.php',
                             method: 'get',
                             valueField:'IdEstado',
-                            textField:'Nombre'">
+                            textField:'Nombre',
+                                onSelect: function(rec){
+                                var url = rec.Nombre;
+                                $('#nEstado').textbox({
+                                            value:url,                                            
+                                })
+                            }">
                     </select>
+                </div>
+                <div style="display: none;">
+                    <input id="nEstado" name="nEstado" type="hidden" data-options="hidden:true">
                 </div>
             </form>
         </div>
@@ -84,16 +96,104 @@
             <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveUser()" style="width:90px">Guardar</a>
             <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancelar</a>
         </div>
-        <div id="dlg-comment" class="easyui-dialog" style=" width:80%;height:600px; padding:10px 20px"
+        <!--FIN DIALOG CAMBIAR ESTADO -->
+
+         <!--DIALOG VER ACLARACIONES -->
+        <div id="dlg-aclaracion" class="easyui-dialog" style=" width:30%;height:420px; padding:10px 20px"
+             closed="true" buttons="#aclaracion-buttons">
+             <table id="taclaracion" data-options="onSelect: function(rowIndex, rowData)
+                                        {
+                                        if(!rowData.abierto){
+                                        rowData.abierto=true;
+                                        $.messager.show({
+                                                title:'Aclaracion',
+                                                timeout:0,
+                                                width:400,
+                                                height:550,
+                                                msg: rowData.Aclaracion+'<p>'+
+                                                '<p><strong>USUARIO ACLARA</strong><br>'+rowData.nUsuarioAclara+
+                                                '<p><strong>FECHA CREACION</strong><br>'+rowData.FechaCreacion,
+                                                showType:'fade',
+                                                draggable:true,
+                                                shadow:true,
+                                                style:{
+                                                    right:'',
+                                                    bottom:''
+                                                },
+                                                onClose:function(){
+                                                rowData.abierto=false;
+                                                }                                                                                                                                              
+                                            });
+                                          } //fin if                                                          
+                                        }"></table>
+        </div>            
+        <div id="aclaracion-buttons">
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg-aclaracion').dialog('close')" style="width:90px">Cerrar</a>
+        </div>
+        <!--FIN DIALOG VER ACLARACIONES -->
+
+        <!--DIALOG REASIGNACION -->
+        <div id="dlg-assigns" class="easyui-dialog" style=" width:40%;height:320px; padding:10px 20px"
+             closed="true" buttons="#assigns-buttons">
+            <form id="fm-assigns" method="post" novalidate>
+                <div class="col-md-6 col-lg-6">
+                            <label class="label-top" for="IdResponsable">Responsable</label>
+                            <select class="easyui-combogrid" name="IdResponsable" id="IdResponsable" style="width:100%; height:32px;" data-options="
+                                    panelWidth: 540,
+                                    panelHeight: 300,                                    
+                                    fitColumns: true,                                                                        
+                                    url: '../php/getCountRequirements.php',
+                                    method: 'post',
+                                    idField: 'IdUsuario',
+                                    textField: 'nUsuario',
+                                    valueField: 'nUsuario',                                    
+                                    onSelect: function(){
+                                        var g = $('#IdResponsable').combogrid('grid');	// get datagrid object
+                                        var r = g.datagrid('getSelected');	// get the selected row                                    
+                                        var nomu = r.nUsuario;
+                                        $('#tb').textbox({
+                                            value: r.nUsuario,                                            
+                                        })
+                                        $('#emailResp').textbox({
+                                            value: r.emailRes,                                            
+                                        })
+                                    }   
+                                    ">
+                            </select>
+                        </div>
+                <div class="col-md-11 col-lg-11">
+                    <label class="label-top" for="Descripcion">Descripcion</label>
+
+                    <input class="col-md-12 col-lg-12 col-sm-12 easyui-textbox"  id="Descripcion" name="Descripcion" data-options="multiline:true" style="height:60px"></input>
+                </div>                
+                <div style="display: none;">
+                    <input id="tb" name="respRequeriment" type="hidden" data-options="hidden:true">
+                    <input id="emailResp" name="emailResp" type="hidden" data-options="hidden:true">
+               </div>
+            </form>
+        </div>
+        <div id="assigns-buttons">
+            <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveReassigns()" style="width:90px">Guardar</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg-assigns').dialog('close')" style="width:90px">Cancelar</a>
+        </div>
+        <!--FIN DIALOG REASIGNACION -->
+        <!--DIALOG COMENTARIO -->
+        <div id="dlg-comment" class="easyui-dialog" style=" width:50%;height:420px; padding:10px 20px"
              closed="true" buttons="#comment-buttons">
             <form id="fm-comment" method="post" novalidate>
-                <div class="col-md-3 col-lg-3">
-                    <label class="label-top" for="IdTipoLineaTiempo">Tipo de requerimiento</label>
+                <div class="col-md-2 col-lg-4">
+                    <label class="label-top" for="IdTipoLineaTiempo">Tipo</label>
                     <select class="easyui-combobox" name="IdTipoLineaTiempo" style="width:100%;height:32px" id="IdTipoRequerimiento " data-options="
                             url: '../php/getTypeTimeLine.php',
                             method: 'get',
                             valueField:'IdTipoLineaTiempo',
-                            textField:'Nombre'">
+                            textField:'Nombre',
+                            onSelect: function(rec){
+                                var url = rec.Nombre;
+                                $('#nombreLineaTiempo').textbox({
+                                            value:url,                                            
+                                })
+                            }">
                     </select>
                 </div>
                 <div class="col-md-11 col-lg-11">
@@ -101,12 +201,23 @@
 
                     <input class="col-md-12 col-lg-12 col-sm-12 easyui-textbox"  id="Descripcion" name="Descripcion" data-options="multiline:true" style="height:60px"></input>
                 </div>
+                <div class="col-md-6">
+                     <label class="label-top" for="Destinario">Destinario</label>
+                    <select class="easyui-combobox" name="mailto[]" id="state" multiple="true" data-options="url:'../php/getUser.php',valueField: 'Email',
+                            textField: 'Nombre'" multiline="true" label="Select States:" labelPosition="top" style="width:100%;height:65px;">
+
+                    </select>
+                </div>
+                <div style="display: none;">
+                    <input id="nombreLineaTiempo" name="nombreLineaTiempo" type="hidden" data-options="hidden:true">
+               </div>
             </form>
         </div>
         <div id="comment-buttons">
             <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveComment()" style="width:90px">Guardar</a>
             <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg-comment').dialog('close')" style="width:90px">Cancelar</a>
         </div>
+        <!--FIN DIALOG COMENTARIO -->
         <div id="time-line" class="easyui-dialog" style="width:900px;height:700px;padding:1px 1px; overflow:hidden;"
              closed="true" >
             <iframe style="width:100%; height:700px;border: 0px;" name="frame-time-line" id="frame-time-line"></iframe>
@@ -141,6 +252,25 @@
                     }
 
                 });
+
+                //ajax que llena el combo box del select del modal de reasignacion
+                $.ajax({
+                     url: '../php/getStatusRequirementCG.php',
+                     dataType: 'json',
+                     method: 'post',
+                     success: function (respuesta) {
+                         //alert(respuesta);
+                         $("#IdResponsable").combogrid({
+                             //panelWidth: 500,
+                             //height:300,
+                             columns: respuesta,
+                             fitColumns: true,
+                             
+                         });
+                     },error:function(error){
+                         console.log(error);
+                     }
+                 });
             });
 
             function getTotalRows() {
@@ -172,13 +302,75 @@
 
             }
 
+            //funcion de reasignacion
+            function Reassigns() {
+                var row = $('#tt').datagrid('getSelected');
+//                alert(row.Autorizado);
+                if (row) {
+                    //if(row.IdEstado==7){alert("no puede asignar un requerimiento finalizado")}
+                    $('#dlg-assigns').dialog('open').dialog('center').dialog('setTitle', 'Reasignar');
+                    $('#fm-assigns').form('load', row);
+                    url = '../php/reassignsRequirementDeveloper.php?id=' + row.IdRequerimiento+'&ticket=' +row.Ticket+ '&IdUsuarioRadica=' +row.IdUsuarioRadica +'&IdEstado=' +row.IdEstado+'&FechaInicioDesarrollo=' +row.FechaInicioDesarrollo;
+                }
+            }
+
+            function saveReassigns() {
+                $('#fm-assigns').form('submit', {
+                    url: url,
+                    onSubmit: function () {
+                        return $(this).form('validate');
+                    },
+                    success: function (result) {
+                        console.log(result);
+                        var result = eval('(' + result + ')');
+                        if (result.errorMsg) {
+                            $.messager.show({
+                                title: 'Error',
+                                msg: result.errorMsg
+                            });
+                        } else {
+                            $.messager.show({
+                                title: 'Notificacion',
+                                msg: result,
+                                showType: 'show'
+                            });
+                            document.getElementById("fm-assigns").reset(); //limpio formulario
+                            $('#dlg-assigns').dialog('close'); // close the dialog
+                            $('#tt').datagrid('reload');    // reload the user data
+                        }
+                    }, error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
+            //funcion abre modal y deja ver aclaraciones
+            function verAcalracion() {
+                var row = $('#tt').datagrid('getSelected');
+//                alert(row.Autorizado);
+                if (row) {
+                    $('#dlg-aclaracion').dialog('open').dialog('center').dialog('setTitle', 'Aclaraciones');
+                    $('#taclaracion').datagrid({
+                            url:'../php/getClarificationsExcel.php?id=' + row.IdRequerimiento,
+                            fitColumns:true,
+                            singleSelect:true,
+                                columns:[[
+                                            {field:'FechaCreacion',title:'Fecha Creacion'},
+                                            {field:'nUsuarioAclara',title:'Usuario Aclaro'}
+                                        ]]
+                                    });
+
+                    //$('#fm-comment').form('load', row);
+                    //url = '../php/saveTimeLine.php?IdRequerimiento=' + row.IdRequerimiento+'&ticket=' +row.Ticket+ '&IdUsuarioRadica=' +row.IdUsuarioRadica;
+                }
+            }
+
             function addComment() {
                 var row = $('#tt').datagrid('getSelected');
 //                alert(row.Autorizado);
                 if (row) {
-                    $('#dlg-comment').dialog('open').dialog('center').dialog('setTitle', 'Agregar Comentario');
+                    $('#dlg-comment').dialog('open').dialog('center').dialog('setTitle', 'Actualizar Linea de Tiempo');
                     $('#fm-comment').form('load', row);
-                    url = '../php/saveTimeLine.php?IdRequerimiento=' + row.IdRequerimiento;
+                    url = '../php/saveTimeLine.php?IdRequerimiento=' + row.IdRequerimiento+'&ticket=' +row.Ticket+ '&IdUsuarioRadica=' +row.IdUsuarioRadica;
                 }
             }
 
@@ -202,6 +394,7 @@
                                 msg: result,
                                 showType: 'show'
                             });
+                            document.getElementById("fm-comment").reset(); //limpio formulario
                             $('#dlg-comment').dialog('close'); // close the dialog
                         }
                     }, error: function (error) {
@@ -235,11 +428,11 @@
             }
             function editUser() {
                 var row = $('#tt').datagrid('getSelected');
-                getModuleByApp();
+                getModuleByApp();                          
                 if (row) {
-                    $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Editar Requerimiento');
+                    $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Cambiar Estado');
                     $('#fm').form('load', row);
-                    url = '../php/updateRequirementDeveloper.php?id=' + row.IdRequerimiento + "&ticket=" + row.Ticket;
+                    url = '../php/updateRequirementDeveloper.php?id=' + row.IdRequerimiento + "&ticket=" + row.Ticket + "&IdResponsable=" + row.IdResponsable+ "&EmailRadica=" + row.EmailRadica+ "&FechaInicioDesarrollo=" + row.FechaInicioDesarrollo;
                 }
             }
 
@@ -274,7 +467,7 @@
                 var row = $('#tt').datagrid('getSelected');
                 if (row) {
                     ///alert("index.html?id=" + row.IdRequerimiento);
-                    $('#frame-time-line').attr("src", "index.html?id=" + row.IdRequerimiento);
+                    $('#frame-time-line').attr("src", "ticketTimeLine.html?id=" + row.IdRequerimiento);
                     $('#time-line').dialog('open').dialog('center').dialog('setTitle', 'Linea de tiempo requerimiento No.' + row.IdRequerimiento);
 
                 }

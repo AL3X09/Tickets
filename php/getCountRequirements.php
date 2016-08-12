@@ -1,5 +1,6 @@
 <?php
 /*
+*archivo asociado a la vista ticket requerimiento administration.html exactamente al combogrid de seleccion de responsables
 *lo que hago en este archivo primero invoco la api de todo los usuarios 
 *posterior a esto le enlazo la api de de todos los estados, continuando con la api que realiza un conteo de 
 *de estados por cada usuario la api se llama  api/TotalesTabla/TotalesViewRequerimientos
@@ -17,7 +18,7 @@ $cantidad = array();
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-    CURLOPT_PORT => "8016",
+    CURLOPT_PORT => $config['server'],
     CURLOPT_URL => $config['server'] . "/api/Usuarios/UsuariosConsultarTodo",
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_ENCODING => "",
@@ -51,17 +52,18 @@ if ($err) {
             "IdUsuario" => $value["IdUsuario"],
             "Nombre" => $value["Nombre"],
             "nEspecialidad" => $value["nEspecialidad"],
+            "Email" => $value["Email"],
         );
         $IdUsuario = $row['IdUsuario'];
         array_push($usuarios, $row);
     }
-//print_r($rowU);
+//print_r($usuarios);
 
     /**********INVOCO API DE ESTADOS************/
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-    CURLOPT_PORT => "8016",
+    CURLOPT_PORT => $config['server'],
     CURLOPT_URL => $config['server'] . "/api/Estados/EstadosConsultarTodo",
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_ENCODING => "",
@@ -105,9 +107,12 @@ if ($err) {
         /*************invoco api donde cuento los estados de cada usuario*******************/ 
              //columna usuarios  
             for ($i=0; $i < $contUsers ; $i++) { 
+                ///capturo las columnas para asignarlas al array que pinta el json
             $IdUsuario = array_column($usuarios, 'IdUsuario');
             $nUsuario = array_column($usuarios, 'Nombre');
             $nEspecialidad = array_column($usuarios, 'nEspecialidad');
+            $emailUsuario = array_column($usuarios, 'Email');
+                ///FIN captura de columnas para asignarlas al array que pinta el json
                  //columna estados
                 for ($j=0; $j < $contEstate; $j++) {
                     $IdEstado = array_column($estados, 'IdEstado');
@@ -120,7 +125,7 @@ if ($err) {
                     $curl = curl_init();
 
             curl_setopt_array($curl, array(
-            CURLOPT_PORT => "8016",
+            CURLOPT_PORT => $config['server'],
             CURLOPT_URL => $config['server']."/api/TotalesTabla/TotalesViewRequerimientos",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
@@ -169,19 +174,20 @@ if ($err) {
                     "IdUsuario" =>$IdUsuario[$i],
                     "nUsuario" =>$nUsuario[$i],                    
                     "nEspecialidad" =>$nEspecialidad[$i],
+                    "emailRes" => $emailUsuario[$i],
               );
         //echo"<br>";
         //echo $totalAsignados;
         $totalAsignados = 0;
-        $row = array_merge($row, $valor); //mesclo los valores
-        array_push($cantidad,$row); //inserto en un array vacio los valores mexclados para continuar trabajando  
+        $row = array_merge($row, $valor);       //mesclo los valores
+        array_push($cantidad,$row);             //inserto en un array vacio los valores mexclados para continuar trabajando  
         
-        $contEstados=array();   //vacio los array para que no aya repeticion de datos
-        $keys=array();          //vacio los array para que no aya repeticion de datos
+        $contEstados=array();                   //vacio los array para que no aya repeticion de datos
+        $keys=array();                          //vacio los array para que no aya repeticion de datos
 
     }     //fin ciclo for i
     
      echo json_encode($cantidad, true);
-     $cantidad=array();     //vacio los array para que no aya repeticion de datos
+     $cantidad=array();                         //vacio los array para que no aya repeticion de datos
 
 }

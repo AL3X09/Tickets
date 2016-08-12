@@ -1,4 +1,8 @@
 <?php
+/*
+//tener en cuenta si hay modificaciones en las consultas y no aparecen los datos es porque
+//estan en un array asosiativo para tener mejor control de este.
+*/
 require './functions.php';
 
 session_start();
@@ -8,7 +12,7 @@ $classFunction = new functions(); // Clase funciones
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_PORT => "8016",
+  CURLOPT_PORT => $config['server'],
   CURLOPT_URL => $config['server'] . "/api/Aclaraciones/AclaracionesConsultarTodo",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => "",
@@ -34,10 +38,6 @@ if ($err) {
 } else {
   //echo $response;
   
-/*
-//tener en cuenta si hay modificaciones en las consultas y no aparecen los datos es porque
-//estan en un array asosiativo para tener mejor control de este.
-*/
     //envio respuesta a un array 
     $array = json_decode($response, true);
     //valido si no un array

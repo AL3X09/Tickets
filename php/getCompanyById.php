@@ -5,7 +5,7 @@ $config = parse_ini_file('../config/config.ini');
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-    CURLOPT_PORT => "8016",
+    CURLOPT_PORT => $config['server'],
     CURLOPT_URL => $config['server'] . "/api/Empresas/EmpresasConsultarUno?idEmpresa=" . $_REQUEST["id"],
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_ENCODING => "",

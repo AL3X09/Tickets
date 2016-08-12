@@ -109,6 +109,7 @@ if ($err) {
             "nEstado" => $value["nEstado"],
             "IdResponsable" => (is_null($value["IdResponsable"])) ? " - " : $value["IdResponsable"],
             "nUsuarioResponsable" => (is_null($value["nUsuarioResponsable"])) ? " - " : $value["nUsuarioResponsable"],
+            "EmailRadica" => $value["EmailRadica"],
         );
 
         array_push($result, $row);

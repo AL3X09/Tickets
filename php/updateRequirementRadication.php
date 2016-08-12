@@ -8,17 +8,24 @@ $config = parse_ini_file('../config/config.ini');
 $classFunction = new functions(); // Clase funciones
 $idUser = intval($_SESSION["id"]);
 $ipUser = htmlspecialchars($classFunction->getRealIp());
+
 $idRequirement = intval($_REQUEST["id"]);
 $idTypeRequirement = intval($_REQUEST["IdTipoRequerimiento"]);
 $idApp = intval($_REQUEST["IdAplicativo"]);
 $idModule = intval($_REQUEST["IdModulo"]);
 $ticket = intval($_REQUEST["ticket"]);
+$IdEstado = intval($_REQUEST["IdEstado"]);
+$nEstado =  htmlspecialchars($_REQUEST["nEstado"]);
 //echo "{\r\n  \"IdRequerimiento\": $idRequirement,\r\n  \"IdTipoRequerimiento\": $idTypeRequirement,\r\n  \"IdAplicativo\": $idApp,\r\n  \"IdModulo\": $idModule,\r\n  \"Usuario\": $idUser,\r\n  \"DirIp\": \"$ipUser\"\r\n}";
+
+//valido si el estado es diferente de PENDIENTE no deja modificar
+if($IdEstado==1){
+
 $curl = curl_init();
 
 
 curl_setopt_array($curl, array(
-    CURLOPT_PORT => "8016",
+    CURLOPT_PORT => $config['server'],
     CURLOPT_URL => $config['server'] . "/api/Requerimiento/RequerimientoActualizarCliente",
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_ENCODING => "",
@@ -52,18 +59,18 @@ if ($err) {
 
         $paramRequest = "{"
                 . "\r\n  \"IdRequerimiento\": $idRequirement,"
-                . "\r\n  \"IdTipoLineaTiempo\": 3,"
-                . "\r\n  \"Descripcion\": \"Se actualiza el requerimiento\","
+                . "\r\n  \"IdTipoLineaTiempo\": 4,"
+                . "\r\n  \"Descripcion\": \"Se edita el requerimiento\","
                 . "\r\n  \"EmailTo\": \"$emailTo\","
                 . "\r\n  \"Tarea\": false,"
                 . "\r\n  \"IdTarea\": null,"
                 . "\r\n  \"UsuarioCreacion\": $idUser\r\n"
                 . "}";
-        echo $paramRequest;
+        //echo $paramRequest;
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_PORT => "8016",
+            CURLOPT_PORT => $config['server'],
             CURLOPT_URL => $config["server"] . "/api/LineaTiempo/LineaTiempoInsertar",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
@@ -94,7 +101,13 @@ if ($err) {
             $result = "Requerimiento #$ticket actualizado con exito ";
         }
     } else {
-        $result = "Ha ocurrido un error, por favor intente nuevamente. $response";
+        $result = "Ha ocurrido un error, por favor intente nuevamente. $response ";
     }
+    echo json_encode($result);
+}
+
+} //fin if el estado es diferente de PENDIENTE
+else{
+    $result = "No puede modificar el requerimiento porque se encuentra en estado: $nEstado ";
     echo json_encode($result);
 }

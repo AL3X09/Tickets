@@ -15,7 +15,7 @@ $insert="{
     }";
 
 curl_setopt_array($curl, array(
-  CURLOPT_PORT => "8016",
+  CURLOPT_PORT => $config['server'],
   CURLOPT_URL => "http://server:8016/api/Especialidades/EspecialidadesInsertar",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => "",

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>CallCenter</title>
+        <link href="../libs/easyui/themes/material/easyui.css" rel="stylesheet" type="text/css"/>
+        <link href="../libs/easyui/themes/icon.css" rel="stylesheet" type="text/css"/>
+        <link href="../libs/easyui/demo/demo.css" rel="stylesheet" type="text/css"/>
+        <script src="../libs/easyui/jquery.min.js" type="text/javascript"></script>
+        <script src="../libs/easyui/jquery.easyui.min.js" type="text/javascript"></script>
+        <script src="../libs/easyui/plugins/datagrid-scrollview.js" type="text/javascript"></script>
+        <link href="../libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <script src="../libs/easyui/locale/easyui-lang-es.js" type="text/javascript"></script>
+        <link href="../libs/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css"/>
+
+        <link href="../libs/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <table id="tt" title="Solicitudes" class="easyui-datagrid" style="width:100%;height:500px" data-options="
+               view:scrollview,rownumbers:true,singleSelect:true,
+               url:'../php/Header/getHeader.php',
+               autoRowHeight:false,pageSize:50" fitColumns="true" pagination="true" toolbar="#toolbar">
+            <thead>
+                <tr>
+                    <th field="nEmpresa" width="100">Empresa</th>
+                    <th field="valorCliente" width="80">Cliente</th>
+                    <th field="nTipoCliente" width="90">Tipo Cliente</th>
+                    <th field="FechaCreacion" width="120">Fecha Radicacion</th>
+                    <th field="FechaOcurrencia" width="120">Fecha Ocurrencia</th>
+                    <th field="FechaEstimadaRespuesta" width="120">FechaEstimadaRespuesta</th>
+                    <th field="FechaRespuesta" width="120">Fecha Ocurrencia</th>
+                    <th field="nTipoRespuesta" width="120">nTipoRespuesta</th>
+                    <th field="nEstado" width="90">Estado</th>
+                </tr>
+            </thead>
+        </table>
+        <div id="toolbar">
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">Nueva Solicitud</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">Editar</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-large-smartart" plain="true" onclick="newClarification()">Aclarar</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-large-chart" plain="true" onclick="timeLine()">Linea de Tiempo</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-mini-add" plain="true" onclick="addComment()">Agregar Comentario</a>
+        </div>
+        <!-- MODAL DEL SOLICITUDES -->
+        <div id="dlg" class="easyui-dialog" style="width:80%;height:600px;padding:10px 20px"
+             closed="true" buttons="#dlg-buttons">      
+            <form id="form" method="post" novalidate enctype="multipart/form-data">
+                <div id="aa" class="easyui-accordion" style="width:100%;height:500px;">
+                    <div title="Datos del usuario" data-options="iconCls:'icon-save'" style="overflow:auto;padding:10px;">
+                        <div class="col-md-3">
+                            <label>Tipo Documento:</label>
+                            <input name="IdTipoDocumento" id="IdTipoDocumento"class="easyui-combobox" data-options="url:'../php/TypeDocument/getTypeDocument.php',textField:'Nombre',valueField:'IdTipoDocumento'" style="width:100%;height:32px" required="true">
+                        </div>
+                        <div class="col-md-3">
+                            <label>Numero Documento:</label>
+                            <input name="NumeroDocumento" id="" class="easyui-numberbox" data-options="" style="width:100%;height:32px" required="true">
+                        </div>
+                        <div class="col-md-3">
+                            <label>Nombres:</label>
+                            <input name="Nombres" id="Nombres" class="easyui-textbox" style="width:100%;height:32px" required="true">
+                        </div>
+                        <div class="col-md-3">
+                            <label>Apellidos:</label>
+                            <input name="Apellidos" id="Apellidos" class="easyui-textbox" style="width:100%;height:32px" required="true">
+                        </div>  
+                        <div class="col-md-3">
+                            <label>Edad:</label>
+                            <input name="Edad" id="Edad" class="easyui-textbox" style="width:100%;height:32px" required="true">
+                        </div>
+                        <div class="col-md-3">
+                            <label>Direcci&oacute;n:</label>
+                            <input name="Direccion" id="Direccion" class="easyui-textbox" style="width:100%;height:32px" required="true">
+                        </div>
+                        <div class="col-md-3">
+                            <label>Telefono Fijo:</label>
+                            <input name="TelefonoFijo" id="TelefonoFijo" class="easyui-textbox" style="width:100%;height:32px" required="true">
+                        </div>
+                        <div class="col-md-3">
+                            <label>Celular:</label>
+                            <input name="TelefonoMovil" id="TelefonoMovil" class="easyui-textbox" style="width:100%;height:32px" required="true">
+                        </div>                
+                        <div class="col-md-3">
+                            <label>Correo:</label>
+                            <input name="Email" id="Email" class="easyui-textbox" required="true" style="width:100%;height:32px">
+                        </div>
+                    </div>
+                    <div title="Datos de la solicitud" data-options="iconCls:'icon-reload',selected:true" style="padding:10px;">
+                        <div class="col-md-3 col-sm-12 col-xs-12">
+                            <label>Empresa</label>
+                            <input id="IdEmpresa" class="easyui-combobox" name="IdEmpresa" url="../php/Company/getCompany.php" data-options="
+                                   valueField:'IdEmpresa',
+                                   textField:'Nombre'"  style="width:100%;height:32px" required="true">
+                        </div>
+                        <div class="col-md-3 col-sm-12 col-xs-12">
+                            <label>Tipo persona</label>
+                            <input id="IdTipoPersona" class="easyui-combobox" name="IdTipoPersona" url="../php/TypePerson/getTypePerson.php" data-options="
+                                   valueField:'IdTipoPersona',
+                                   textField:'Nombre'"  style="width:100%;height:32px" required="true">
+                        </div>
+                        <div class="col-md-3 col-sm-12 col-xs-12">
+                            <label>Persona</label>
+                            <input id="IdPersona" class="easyui-combobox"name="IdPersona" url="../php/Person/getPerson.php" data-options="
+                                   valueField:'IdPersona',
+                                   textField:'Nombres'" style="width:100%;height:32px" required="true">
+                        </div>                
+                        <div class="col-md-3 col-sm-12 col-xs-12">
+                            <label>Ciudad</label>
+                            <input id="IdCiudad" class="easyui-combobox"name="IdCiudad" url="../php/City/getCity.php" data-options="
+                                   valueField:'IdCiudad',
+                                   textField:'Nombre'"  style="width:100%;height:32px" required="true">
+                        </div>                
+                        <div class="col-md-3 col-sm-12 col-xs-12">
+                            <label>Cliente?</label>
+                            <div class="col-md-12"><input class="easyui-switchbutton" id="Cliente" checked name="Cliente" required="true"/></div>
+                        </div>
+                        <div class="col-md-3 col-sm-12 col-xs-12">
+                            <label>Tipo Cliente</label>
+                            <input id="IdTipoCliente" class="easyui-combobox" name="IdTipoCliente" url="../php/TypeClient/getTypeClient.php" data-options="
+                                   valueField:'IdTipoCliente',
+                                   textField:'Nombre'" style="width:100%;height:32px" required="true">
+                        </div>
+                        <div class="col-md-3 col-sm-12 col-xs-12">
+                            <label>Producto</label>
+                            <input id="IdProducto" class="easyui-combobox"name="IdProducto" url="../php/Product/getProduct.php" data-options="
+                                   valueField:'IdProducto',
+                                   textField:'Nombre'" style="width:100%;height:32px" required="true">
+                        </div>
+                        <div class="col-md-3 col-sm-12 col-xs-12">
+                            <label>Fecha Ocurrencia</label>
+                            <div class='input-group datetime' id='FechaOcurrencia'>
+                                <input type='text' class="form-control" name="FechaOcurrencia" style="width:100%;height:32px" required="true"/>
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-12 col-xs-12">
+                            <label>Origen</label>
+                            <input id="IdOrigen" class="easyui-combobox"name="IdOrigen" url="../php/Origin/getOrigin.php" data-options="
+                                   valueField:'IdOrigen',
+                                   textField:'Nombre'" style="width:100%;height:32px" required="true">
+                        </div>
+                        <div class="col-md-3 col-sm-12 col-xs-12">
+                            <label>Tipificacion</label>
+                            <input id="IdTipificacion" class="easyui-combobox" name="IdTipificacion" url="../php/Typing/getTyping.php" data-options="
+                                   valueField:'IdTipificacion',
+                                   textField:'Nombre'" style="width:100%;height:32px" required="true">
+                        </div>
+                        <div class="col-md-3 col-sm-12 col-xs-12">
+                            <label>Estado</label>
+                            <input id="IdEstado" class="easyui-combobox" name="IdEstado" url="../php/State/getState.php" data-options="
+                                   valueField:'IdEstado',
+                                   textField:'Nombre'" style="width:100%;height:32px" required="true">
+                        </div>                                
+                        <div class="col-md-3 col-md-3 col-sm-12 col-xs-12">
+                            <label>Adjuntar Documentos</label>
+                            <input class="easyui-filebox" name="file[]" id="file" multiple="true" data-options="prompt:'Escoja archivos',buttonText:'Examinar...',accept:'image/*,application/pdf,application/html,application/htm'" style="width:100%;height: 32px">
+                        </div> 
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <label>Comentario</label>
+                            <input class="easyui-textbox" id="Comentario" name="Comentario" data-options="multiline:true" style="width: 100%;height:60px" required="true"/>
+                        </div>
+                    </div>
+                </div>
+                <div id="dlg-buttons">
+                    <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveUser()" style="width:90px">Guardar</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancelar</a>
+                </div>
+            </form>
+        </div>
+        <!-- FIN MODAL DE SOLICITUD -->
+        <!-- MODAL DEL ACLARACIONES -->
+        <div id="dlg-clarifications" class="easyui-dialog" style="width:50%;height:250px;padding:10px 20px"
+             closed="true" buttons="#dlg-buttons-clarifications">      
+            <form id="form-clarification" method="post" novalidate enctype="multipart/form-data">
+                <div class="col-md-12">
+                    <textarea class="col-md-12" name="aclaracion" style="resize:none;height: 100px;"></textarea>
+                </div>
+                <div id="dlg-buttons-clarifications">
+                    <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveClarification()" style="width:90px">Guardar</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg-clarifications').dialog('close')" style="width:90px">Cancelar</a>
+                </div>
+            </form>
+        </div>
+        <!-- FIN MODAL DE ACLARACIONES -->
+        <!-- MODAL DE LINEA DE TIEMPO -->
+        <div id="time-line" class="easyui-dialog" style="width:900px;height:700px;padding:1px 1px; overflow:hidden;"
+             closed="true" >
+            <iframe style="width:100%; height:700px;border: 0px;" name="frame-time-line" id="frame-time-line"></iframe>
+        </div>
+        <!-- FIN MODAL LINEA DE TIEMPO -->
+        <!-- MODAL DE COMENTARIOS -->
+        <div id="dlg-comment" class="easyui-dialog" style=" width:40%;height:900px; padding:10px 20px"
+             closed="true" buttons="#comment-buttons">
+            <form id="fm-comment" method="post" novalidate>
+                <div class="col-md-6 col-lg-6">
+                    <label class="label-top" for="IdTipoLineaTiempo">Tipo de requerimiento</label>
+                    <select class="easyui-combobox" name="IdTipoLineaTiempo" style="width:100%;height:32px" id="IdTipoRequerimiento " data-options="
+                            url: '../php/TypeLineTime/getTypeLineTime.php',
+                            method: 'get',
+                            valueField:'IdTipoLineaTiempo',
+                            textField:'Nombre'">
+                    </select>
+                </div>
+                <div class="col-md-11 col-lg-11">
+                    <label class="label-top" for="Descripcion">Descripcion</label>
+
+                    <input class="col-md-12 col-lg-12 col-sm-12 easyui-textbox"  id="Descripcion" name="Descripcion" data-options="multiline:true" style="height:60px"></input>
+                </div>
+                <div class="col-md-6">
+                    <select class="easyui-combobox" name="mailto[]" id="state" multiple="true" data-options="url:'../php/User/getUser.php',valueField: 'Email',
+                            textField: 'Nombre'" multiline="true" label="Select States:" labelPosition="top" style="width:100%;height:65px;">
+
+                    </select>
+                </div>
+            </form>
+        </div>
+        <div id="comment-buttons">
+            <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveComment()" style="width:90px">Guardar</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg-comment').dialog('close')" style="width:90px">Cancelar</a>
+
+        </div>
+        <!-- FIN MODAL DE COMENTARIOS -->
+
+        <script type="text/javascript">
+            var url;
+            var ids = [];
+
+            $(function () {
+                $("#state").combobox({
+                    onSelect: function (record) {
+                        ids.push(record.IdUsuario);
+                    }, onUnselect: function (record) {
+                        $.each(ids, function (index) {
+                            if (ids[index] === record.IdUsuario) {
+                                ids.splice(index, 1);
+                            }
+                        });
+                    }
+                });
+            });
+
+            function newUser() {
+                $("#dlg").dialog("open").dialog("center").dialog("setTitle", "Nueva solicitud");
+                $("#form").form("clear");
+                url = '../php/Header/SaveHeaderRadicationCC.php';
+            }
+
+            function editUser() {
+                var row = $('#tt').datagrid('getSelected');
+                if (row) {
+                    $('#dlg').dialog('open').dialog("setTitle", "Editar Solicitud");
+                    $('#form').form('load', row);
+                    url = '../php/Header/updateHeaderRadicationCC.php?IdPqrEncabezado=' + row.IdPqrEncabezado;
+                }
+            }
+
+            function saveUser() {
+                $('#form').form('submit', {
+                    url: url,
+                    onSubmit: function () {
+                        return $(this).form("validate");
+                    }, success: function (result) {
+                        console.log(result);
+                    }, onLoadError: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
+
+            $(function () {
+                $('#tt').datagrid({
+                    detailFormatter: function (rowIndex, rowData) {
+                        return '<table style="border:1px solid;"><tr>' +
+                                '<td style="border:1px solid;padding:10px">' +
+                                '<p>Persona: ' + rowData.nPersona + '</p>' +
+                                '<p>Tipo Persona: ' + rowData.nTipoPersona + '</p>' +
+                                '</td>' +
+                                '<td style="border:1px solid;padding:10px">' +
+                                '<p>Producto: ' + rowData.nProducto + '</p>' +
+                                '<p>Origen: ' + rowData.nOrigen + '</p>' +
+                                '</td>' +
+                                '<td style="border:1px solid;padding:10px">' +
+                                '<p>Ciudad: ' + rowData.nCiudad + '</p>' +
+                                '<p>Sucursal: ' + rowData.nSucursalRadicacion + '</p>' +
+                                '</td>' +
+                                '<td style="border:1px solid;padding:10px">' +
+                                '<p>Tipicacion: ' + rowData.nTipificacion + '</p>' +
+                                '<p>Responsable: ' + rowData.nUResponsable + '</p>' +
+                                '</td>' +
+                                '<td style="border:1px solid;padding:10px">' +
+                                '<p>Solicitado por: ' + rowData.nUsuarioCreacion + '</p>' +
+                                '<p>Comentario: ' + rowData.Comentario + '</p>' +
+                                '</td>' +
+                                '</tr></table>';
+                    }
+                });
+            });
+
+            function newClarification() {
+                $("#dlg-clarifications").dialog("open").dialog("center").dialog("setTitle", "Nueva Aclaracion");
+                $("#form-clarification").form("clear");
+                url = '../php/Clarification/saveClarification.php';
+            }
+            function saveClarification() {
+                $('#form-clarification').form('submit', {
+                    url: url,
+                    success: function (result) {
+                        console.log(result);
+                    }, onLoadError: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
+            function timeLine() {
+                var row = $('#tt').datagrid('getSelected');
+                if (row) {
+                    ///alert("index.html?id=" + row.IdRequerimiento);
+                    $('#frame-time-line').attr("src", "generateLineTime.html?id=" + row.IdPqrEncabezado);
+                    $('#time-line').dialog('open').dialog('center').dialog('setTitle', 'Linea de tiempo requerimiento No.' + row.IdPqrEncabezado);
+                }
+            }
+
+            function addComment() {
+                var row = $('#tt').datagrid('getSelected');
+//                alert(row.Autorizado);
+                if (row) {
+                    $('#dlg-comment').dialog('open').dialog('center').dialog('setTitle', 'Agregar Comentario');
+                    $('#fm-comment').form('load', row);
+                    url = '../php/LineTime/saveLineTime.php?IdPqrEncabezado=' + row.IdPqrEncabezado;
+                }
+            }
+
+            function saveComment() {
+                $('#fm-comment').form('submit', {
+                    url: url,
+                    onSubmit: function (param) {
+                        param.document = ids;
+                        return $(this).form('validate');
+                    },
+                    success: function (result) {
+                        console.log(result);
+                        var result = eval('(' + result + ')');
+                        if (result.errorMsg) {
+                            $.messager.show({
+                                title: 'Error',
+                                msg: result.errorMsg
+                            });
+                        } else {
+                            $.messager.show({
+                                title: 'Notificacion',
+                                msg: result,
+                                showType: 'show'
+                            });
+                            $('#dlg-comment').dialog('close'); // close the dialog
+                        }
+                    }, error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
+        </script>
+        <style type="text/css">
+            .datagrid-header-rownumber,.datagrid-cell-rownumber{
+                width:40px;
+            }
+            #fm{
+                margin:0;
+                padding:10px 30px;
+            }
+            .ftitle{
+                font-size:14px;
+                font-weight:bold;
+                padding:5px 0;
+                margin-bottom:10px;
+                border-bottom:1px solid #ccc;
+            }
+            .fitem{
+                margin-bottom:5px;
+            }
+            .fitem label{
+                display:inline-block;
+                width:80px;
+            }
+            .fitem input{
+                width:160px;
+            }
+        </style>
+        <script src="../libs/bootstrap/moment/moment.js" type="text/javascript"></script>
+        <script src="../libs/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="../libs/bootstrap/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+        <script src="../libs/bootstrap/moment/locale/es.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#FechaOcurrencia').datetimepicker({
+                    format: "DD-MM-YYYY HH:mm",
+                    locale: 'es',
+                    daysOfWeekDisabled: [0, 6],
+                    enabledHours: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
+                    minDate: new Date()
+                });
+
+            });
+        </script>
+    </body>
+</html>

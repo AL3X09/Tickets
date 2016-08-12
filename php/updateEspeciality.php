@@ -16,7 +16,7 @@ $update ="{
     \r\n  \"DirIp\": \"".$ipUser."\"\r\n
     }";
 curl_setopt_array($curl, array(
-  CURLOPT_PORT => "8016",
+  CURLOPT_PORT => $config['server'],
   CURLOPT_URL => $config['server'] . "/api/Especialidades/EspecialidadesActualizar",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => "",
