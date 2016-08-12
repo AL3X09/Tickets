@@ -83,9 +83,9 @@
                  <!--INICIO Acordeon -->
                 <div class="easyui-accordion" style="width:100%;height:500px;">
                     <!--INICIO Acordeon div asigna responsable al requerimiento -->
-                    <div title="Datos de requerimiento" data-options="collapsed:false,collapsible:true" style="padding:10px;">
+                    <div title="Gestion de Requerimiento" data-options="collapsed:false,collapsible:true" style="padding:10px;">
                         <p><strong>Asignacion de requerimientos</strong></p>
-                        <div class="col-md-4 col-lg-3">
+                        <div class="col-md-4 col-lg-4">
                             <label class="label-top" for="IdResponsable">Responsable</label>
                             <!-- <select class="easyui-combobox" name="IdResponsable" style="width:100%;height:32px" data-options="
                                     url: 'php/getUser.php',
@@ -116,6 +116,48 @@
                                     ">
                             </select>
                         </div>
+                        <!--ROWS DE LA TIPIFICACION <div style="display: none;">-->
+                        
+                         <div class="col-md-3 col-lg-4">
+                            <label class="label-top" for="idTipificicacion">Tipificacion</label>
+                               <select id="idTipificicacion" class="easyui-combotree"  name="idTipificicacion" style="width:100%;height:32px" data-options="
+                               url:'../php/tree_data.php',
+                               onSelect: function(node){
+                                    if(!node.cantidad){
+                                            $('#cantidad').textbox({
+                                                value: null,
+                                                disabled:false
+                                            })
+                                            $('#unidad').combobox({
+                                                value: null,
+                                                url:'../php/getUnity.php',
+                                                readonly:false                                            
+                                            })
+                                    }else{
+                                            $('#cantidad').textbox({
+                                                value: node.cantidad,
+                                                readonly:true
+                                            })
+                                            $('#unidad').combobox({
+                                                value: node.unidad,
+                                                readonly:true                                            
+                                            })
+                                    }
+                                }
+                               ">
+                               </select>
+                        </div>
+                        <div class="col-md-1 col-lg-1">
+                            <label class="label-top" for="cantidad">cantidad</label>
+                               <input class="input-none" name="cantidad" id="cantidad" style="width:50px;height:32px">
+                        </div>
+                        <div class="col-md-1 col-lg-1">
+                            <label class="label-top" for="unidad">unidad</label>
+                               <input class="easyui-combobox" name="unidad" id="unidad" data-options="valueField:'Nombre',textField:'Nombre'" style="width:90px;height:32px">
+                        </div>
+                    
+                    <!--FIN ROWS DE LA TIPIFICACION </div>-->
+
                         <div class="col-md-3 col-lg-3">
                             <label class="label-top" for="FechaEstSIES">Fecha estimado SIES</label>
                             <!--<input name="FechaEstSIES" id="FechaEstSIES" class="easyui-datetimebox" style="width:100%;height:32px">-->
@@ -129,23 +171,7 @@
                             </div>
 
                         </div>
-                        <!--ROWS DE LA TIPIFICACION-->
-                        <div style="display: none;">
-                         <div class="col-md-3 col-lg-3">
-                            <label class="label-top" for="idTipificicacion">Tipificacion</label>
-                               <select id="idTipificicacion" class="easyui-combotree"  name="idTipificicacion" style="width:100%;height:32px" data-options="url:'getTipificacion.php'">
-                               </select>
-                        </div>
-                        <div class="col-md-3 col-lg-3">
-                            <label class="label-top" for="idTipificicacion">cantidad</label>
-                               <input class="easyui-textbox" data-options="" style="width:50px;height:32px">
-                        </div>
-                        <div class="col-md-3 col-lg-3">
-                            <label class="label-top" for="idTipificicacion">unidad</label>
-                               <input class="easyui-textbox" data-options="" style="width:80px;height:32px">
-                        </div>
-                    </div>
-                    <!--FIN ROWS DE LA TIPIFICACION-->
+                        
 
                         <div class="col-md-3 col-lg-3">
                             <label class="label-top" for="FechaEstCliente">Fecha estimado Cliente</label>
@@ -200,7 +226,7 @@
                         </div>
                         <div class="col-md-3 col-lg-3">
                             <label class="label-top" for="Costo">Costo</label>
-                            <input class="" type="text" name="Costo" id="Costo" data-options="required:true"style="width:100%;height:32px"/>
+                            <input class="" type="text" name="Costo" id="Costo" data-options="required:true" style="width:100%;height:32px"/>
                         </div>
                         <div class="col-md-3 col-lg-3">
                             <label class="label-top" for="Autorizado">Autorizado</label>
@@ -220,7 +246,7 @@
                     <!--FIN Acordeon div asigna responsable al requerimiento -->
 
                     <!--INICIO Acordeon div gestion del requerimiento -->
-                    <div title="Gestion de Requerimiento" data-options="selected:false" style="padding:5px;">
+                    <div title="Datos de requerimiento" data-options="selected:false" style="padding:5px;">
                         <div class="col-md-2 col-lg-2">
                             <label class="label-top" for="IdTipoRequerimiento">Tipo de requerimiento</label>
                             <input class="input-none" type="text" name="nTipoRequerimiento" data-options="" disabled="true" />                            
@@ -564,8 +590,6 @@
             function editUser() {
                 var row = $('#tt').datagrid('getSelected');
                 getModuleByApp();
-                
-//                alert(row);
                 if (row) {
                     $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Editar Requerimiento');
                     $('#fm').form('load', row);
@@ -577,9 +601,11 @@
                 $("#acorAclaracion").attr('style','display: true');
                 
             }
+
             function newAsignado() {
                 $("#IdResponsable").textbox({disabled: false});
             }
+
             function editAsignado() {
                 $("#IdResponsable").textbox({disabled: true});
             }
@@ -587,19 +613,17 @@
             function updateRequirement() {
                 var row = $('#tt').datagrid('getSelected');
                 getModuleByApp();
-                 var estado = row.IdEstado;
+                var estado = row.IdEstado;
                 //valido el estado para que el usuario pueda o no editar
                     if(estado==1){
                         newAsignado();
                     }else{
                         editAsignado();
-                        //noEditRequirement();
                     }    
-                //editRequirement();
                 if (row) {
 //                    $('#FechaEstSIES').datetimepicker().children('input').val(row.FechaEstSIES);
-//alert("algo");
                     $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Asignar Requerimiento');
+                    $("#unidad").combobox('readonly');
                     $('#taclaracion').datagrid({
                             url:'../php/getClarificationsExcel.php?id=' + row.IdRequerimiento,
                             fitColumns:true,
@@ -610,9 +634,9 @@
                                         ]]
                                     });
                     $('#fm').form('load', row);
-                    url = '../php/updateRequirementAdmon.php?id=' + row.IdRequerimiento + "&ticket=" + row.Ticket + "&Requerimiento=" + row.Requerimiento;
+                    url = '../php/updateRequirementAdmon.php?id=' + row.IdRequerimiento + "&ticket=" + row.Ticket + "&Requerimiento=" + row.Requerimiento + "&IdResponsable=" + row.IdResponsable;
                 }
-                
+               
             }
 
             function saveComment() {
@@ -665,6 +689,7 @@
                                 showType: 'show'
                             });
                             $('#reasignar').dialog('close'); // close the dialog
+                            $('#fm').form('clear');
                             $('#tt').datagrid('reload'); // reload the user data
                         }
                     }, error: function (error) {

@@ -17,7 +17,7 @@ $config = parse_ini_file('../config/config.ini');
 $classFunction = new functions(); // Clase funciones
 $idUser = intval($_SESSION["id"]);
 $ipUser = htmlspecialchars($classFunction->getRealIp());
-
+ 
     /*
     *
     *api o curl que consulta el total de las tabla y lo uso para armar el consecutivo del requerimiento es decir el campo ticket
@@ -114,7 +114,10 @@ if ($err) {
                 <table>                    
                     <tr>
                         <td>Se creo nuevo requerimiento con #'.$ticketNumber.'</td>
-                    </tr>                    
+                    </tr>
+                    <tr>
+                        <td>'.$requirement.'</td>
+                    </tr>                 
                 </table>
                     ';            
         /*** CONSULTO LA API DE USUARIOS EXCEL Y OBTENER LOS CORREOS DE LOS ADMINISTRADORES DEL APLICATIVO***/
@@ -197,7 +200,7 @@ if ($err) {
                         }
                        
                         //Ponemos el asunto del mensaje
-                        $correo->Subject = "Se crea un nuevo requerimiento ";
+                        $correo->Subject = "Se crea nuevo requerimiento ";
                         
                         /*
                         * Si deseamos enviar un correo con formato HTML utilizaremos MsgHTML:
@@ -222,7 +225,7 @@ if ($err) {
                                 $paramRequest = "{"
                                         . "\r\n  \"IdRequerimiento\": $response,"
                                         . "\r\n  \"IdTipoLineaTiempo\": 2,"
-                                        . "\r\n  \"Descripcion\": \"Se crea un nuevo requerimiento $requirement\","
+                                        . "\r\n  \"Descripcion\": \"Se crea nuevo requerimiento: $requirement\","
                                         . "\r\n  \"EmailTo\": \"$emailsTo\","
                                         . "\r\n  \"Tarea\": false,"
                                         . "\r\n  \"IdTarea\": null,"

@@ -1,5 +1,11 @@
 <?php
-//TODO SI SE UTILIZA ESTE ARCHIVO PARA ACTUALIZAR EL REQUERIMIENTO EJECUTA ACCIONES PARA API LINEA DE TIEMPO Y API TAREAS OJO AJUSTAR
+/*
+*TENER EN CUENTA
+*ESTE ARCHVIO CONTIENE DOS APIS UNA QUE ACTUALIZA EL REQUERIMIENTO CON LOS DATOS DEL ASMINISTRADOR
+*OTRA ES LA QUE INSERTA EN LA LINEA DE TIEMPO
+*ADEMAS QUE SE DEFINE LA LINEA DE TIEMPO CON EL ID 4 ES DECIR "ACTUALIZACION DEL REQUERIMIENTO"
+*
+*/
 require './functions.php';
 require '../libs/phpmailer/PHPMailerAutoload.php';
 //ini_set("display_errors", "on");
@@ -25,26 +31,63 @@ $dateClient = date_format(new DateTime($_REQUEST["FechaEstCliente"]), 'Y-m-d H:i
 $finishDate = (isset($_REQUEST["FechaTerminado"])) ? date_format(new DateTime($_REQUEST["FechaTerminado"]), 'Y-m-d H:i:s') : null ;
 $testDate = (isset($_REQUEST["FechaPruebas"])) ? date_format(new DateTime($_REQUEST["FechaPruebas"]), 'Y-m-d H:i:s') : null ;
 $productionDate = (isset($_REQUEST["FechaProduccion"])) ? date_format(new DateTime($_REQUEST["FechaProduccion"]), 'Y-m-d H:i:s') : null ;
-//echo $testDate;
+
+$cantidad= intval($_REQUEST["cantidad"]);
+$unidad= htmlspecialchars($_REQUEST["unidad"]);
+$unidad = substr($unidad, 0, 2);                    //substraigo los dos primeros caracteres
+$unidad = strtoupper($unidad);                      //los vuelvo a mayusculas
+//valido si la unidad son minutos
+$unidad = ($unidad=="MI") ? $unidad = strtoupper($unidad[1]) : $unidad = strtoupper($unidad[0]) ; 
+/*
+--- calculo fechas dependiendo de la unidad del acuerdo de servicio---
+*/
+//si unidad es igual a años
+if ($unidad=="A") {
+    //echo "años";
+}
+//sino si unidad es igual a meses
+elseif ($unidad=="M") {
+    # code...
+}
+//sino si unidad es igual a dias
+elseif ($unidad=="D") {
+    # code...
+}
+//sino si unidad es igual a horas
+elseif ($unidad=="H") {
+    # code...
+}
+//sino si unidad es igual a minutos
+elseif ($unidad=="I") {
+    //echo "minutos";
+}
+//sino si unidad es igual a segundos
+elseif ($unidad=="S") {
+    # code...
+}
+/*
+--- fin calculo fechas dependiendo de la unidad del acuerdo de servicio---
+*/
+
 $ticket = intval($_REQUEST["ticket"]);
-//variables para la tarea
-$Requerimiento = htmlspecialchars($_REQUEST["Requerimiento"]);         // recivo el requerimiento para armar la tarea
 //variables para la linea de tiempo 
 $descripcion = 'se asigna a '.$_REQUEST["respRequeriment"].' como responsable para el requerimiento';   // armo mensaje para la liena de tiempo
  
 //echo $descripcion;
-//echo "{\r\n  \"IdRequerimiento\": $idRequirement,"
-// . "\r\n  \"IdEstado\": $status,"
-// . "\r\n  \"FechaEstSIES\": \"$dateSies\","
-// . "\r\n  \"FechaEstCliente\": \"$dateClient\","
-// . "\r\n  \"FechaTerminado\": \"$finishDate\","
-// . "\r\n  \"IdResponsable\": $idresponsable,"
-// . "\r\n  \"OrdenCompra\": $orderBuy,"
-// . "\r\n  \"Costo\": $cost,"
-// . "\r\n  \"Autorizado\": $accepted,"
-// . "\r\n  \"UAutoriza\": $acceptedBy,"
-// . "\r\n  \"Usuario\": $idUser,"
-// . "\r\n  \"DirIp\": \"$ipUser\"\r\n}";
+/*
+echo "{\r\n  \"IdRequerimiento\": $idRequirement,"
+ . "\r\n  \"IdEstado\": $status,"
+ . "\r\n  \"FechaEstSIES\": \"$dateSies\","
+ . "\r\n  \"FechaEstCliente\": \"$dateClient\","
+ . "\r\n  \"FechaTerminado\": \"$finishDate\","
+ . "\r\n  \"IdResponsable\": $idresponsable,"
+ . "\r\n  \"OrdenCompra\": $orderBuy,"
+ . "\r\n  \"Costo\": $cost,"
+ . "\r\n  \"Autorizado\": $accepted,"
+ . "\r\n  \"UAutoriza\": $acceptedBy,"
+ . "\r\n  \"Usuario\": $idUser,"
+ . "\r\n  \"DirIp\": \"$ipUser\"\r\n}";
+*/
 
 $curl = curl_init();
 
@@ -76,7 +119,7 @@ if ($err) {
 //    echo $response;
 
     /***********************CURL LINEA DE TIEMPO**********************************/
-    //TODO OJO ARREGLAR Y DETERMINAR QUE TIPO DE LINEA DE TIEMPO SE DETERMINA PARA ESE REQUICITO
+    // TIPO DE LINEA DE TIEMPO SE DETERMINA PARA ESE REQUICITO ES ACTUALIZACION
      $curl = curl_init();
 
     curl_setopt_array($curl, array(
@@ -88,7 +131,7 @@ if ($err) {
         CURLOPT_TIMEOUT => 30,
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "POST",
-        CURLOPT_POSTFIELDS => "{\r\n  \"IdRequerimiento\": $idRequirement,\r\n  \"IdTipoLineaTiempo\": 1,\r\n  \"Descripcion\": \"$descripcion\",\r\n  \"EmailTo\": \"$emailResponsable\",\r\n  \"Tarea\": 1,\r\n  \"IdTarea\": null,\r\n  \"UsuarioCreacion\": $idUser\r\n}",
+        CURLOPT_POSTFIELDS => "{\r\n  \"IdRequerimiento\": $idRequirement,\r\n  \"IdTipoLineaTiempo\": 4,\r\n  \"Descripcion\": \"$descripcion\",\r\n  \"EmailTo\": \"$emailResponsable\",\r\n  \"Tarea\": 1,\r\n  \"IdTarea\": null,\r\n  \"UsuarioCreacion\": $idUser\r\n}",
         CURLOPT_HTTPHEADER => array(
             "cache-control: no-cache",
             "content-type: application/json",
@@ -109,10 +152,10 @@ if ($err) {
             $contenido='
                 <table>                    
                     <tr>
-                    <td>Se le asigno el requerimineto #'.$ticket.'</td>
+                        <td>Se le asigno el requerimineto #'.$ticket.'</td>
                     </tr>
                     <tr>
-                    <td>tarea con fecha estimada para termniacion '.$dateSies.'</td>
+                        <td>tarea con fecha estimada para termniacion '.$dateSies.'</td>
                     </tr>
                 </table>
                     ';
@@ -146,7 +189,7 @@ if ($err) {
             //Usamos el AddAddress para agregar un destinatario
             $correo->AddAddress($emailResponsable); 
             //Ponemos el asunto del mensaje
-            $correo->Subject = "Asignacion de ticket #$ticket ";
+            $correo->Subject = "Asignacion de requerimiento #$ticket ";
             /*
             * Si deseamos enviar un correo con formato HTML utilizaremos MsgHTML:
             * $correo->MsgHTML("<strong>Mi Mensaje en HTML</strong>");
